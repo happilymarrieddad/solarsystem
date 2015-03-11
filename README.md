@@ -5,7 +5,6 @@
 <h4>Summary:</h4><br />
 	This project is still under development.
 <br /><br />
-
 <h4>Instructions:</h4>
 	<h5>Ubuntu:</h5>
 		<h6>g++ main.cpp -o game -std=c++11 -lGL -lGLU -lglut</h6>
