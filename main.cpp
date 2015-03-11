@@ -37,7 +37,7 @@ const GLfloat EARTH_ORBITAL_PERIOD = 365.26f;
 GLfloat WINDOW_X = 0.0f;
 GLfloat WINDOW_Y = 0.0f;
 GLfloat WINDOW_Z = -5000000.0f;
-GLfloat SIMULATION_SPEED = 0.5f;
+GLfloat SIMULATION_SPEED = 0.05f;
 GLfloat QUALITY = 64.0f;
 GLfloat CURRENT_TIME = 100.0f;
 
@@ -272,7 +272,7 @@ void display()
 	glBindTexture(GL_TEXTURE_2D, mercury.getTexture());
 	mercury.setYRotation(mercury.getYRotation() - mercury.getYRotationSpeed());
 	if (mercury.getYRotation() > 360.0f) mercury.setYRotation(mercury.getYRotation() - 360.0f);
-	glRotatef(mercury.getYRotation(), 0.0f, 1.0f, 0.0f);
+	glRotatef(mercury.getYRotation() * SIMULATION_SPEED * 20.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	gluSphere(mercury.getSphere(), mercury.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
@@ -283,7 +283,7 @@ void display()
 	glBindTexture(GL_TEXTURE_2D, venus.getTexture());
 	venus.setYRotation(venus.getYRotation() - venus.getYRotationSpeed());
 	if (venus.getYRotation() > 360.0f) venus.setYRotation(venus.getYRotation() - 360.0f);
-	glRotatef(venus.getYRotation(), 0.0f, 1.0f, 0.0f);
+	glRotatef(venus.getYRotation() * SIMULATION_SPEED * 20.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	gluSphere(venus.getSphere(), venus.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
@@ -294,7 +294,7 @@ void display()
 	glBindTexture(GL_TEXTURE_2D, earth.getTexture());
 	earth.setYRotation(earth.getYRotation() - earth.getYRotationSpeed());
 	if (earth.getYRotation() > 360.0f) earth.setYRotation(earth.getYRotation() - 360.0f);
-	glRotatef(earth.getYRotation(), 0.0f, 1.0f, 0.0f);
+	glRotatef(earth.getYRotation() * SIMULATION_SPEED * 20.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	gluSphere(earth.getSphere(), earth.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
@@ -305,7 +305,7 @@ void display()
 	glBindTexture(GL_TEXTURE_2D, mars.getTexture());
 	mars.setYRotation(mars.getYRotation() - mars.getYRotationSpeed());
 	if (mars.getYRotation() > 360.0f) mars.setYRotation(mars.getYRotation() - 360.0f);
-	glRotatef(mars.getYRotation(), 0.0f, 1.0f, 0.0f);
+	glRotatef(mars.getYRotation() * SIMULATION_SPEED * 20.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	gluSphere(mars.getSphere(), mars.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
@@ -323,7 +323,7 @@ void display()
 	glBindTexture(GL_TEXTURE_2D, jupiter.getTexture());
 	jupiter.setYRotation(jupiter.getYRotation() - jupiter.getYRotationSpeed());
 	if (jupiter.getYRotation() > 360.0f) jupiter.setYRotation(jupiter.getYRotation() - 360.0f);
-	glRotatef(jupiter.getYRotation(), 0.0f, 1.0f, 0.0f);
+	glRotatef(jupiter.getYRotation() * SIMULATION_SPEED * 20.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	gluSphere(jupiter.getSphere(), jupiter.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
@@ -334,7 +334,7 @@ void display()
 	glBindTexture(GL_TEXTURE_2D, saturn.getTexture());
 	saturn.setYRotation(saturn.getYRotation() - saturn.getYRotationSpeed());
 	if (saturn.getYRotation() > 360.0f) saturn.setYRotation(saturn.getYRotation() - 360.0f);
-	glRotatef(saturn.getYRotation(), 0.0f, 1.0f, 0.0f);
+	glRotatef(saturn.getYRotation() * SIMULATION_SPEED * 20.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	gluSphere(saturn.getSphere(), saturn.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
@@ -345,7 +345,7 @@ void display()
 	glBindTexture(GL_TEXTURE_2D, uranus.getTexture());
 	uranus.setYRotation(uranus.getYRotation() - uranus.getYRotationSpeed());
 	if (uranus.getYRotation() > 360.0f) uranus.setYRotation(uranus.getYRotation() - 360.0f);
-	glRotatef(uranus.getYRotation(), 0.0f, 0.0f, 1.0f);
+	glRotatef(uranus.getYRotation() * SIMULATION_SPEED * 20.0f, 0.0f, 0.0f, 1.0f);
 	gluSphere(uranus.getSphere(), uranus.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
 
@@ -355,7 +355,7 @@ void display()
 	glBindTexture(GL_TEXTURE_2D, neptune.getTexture());
 	neptune.setYRotation(neptune.getYRotation() - neptune.getYRotationSpeed());
 	if (neptune.getYRotation() > 360.0f) neptune.setYRotation(neptune.getYRotation() - 360.0f);
-	glRotatef(neptune.getYRotation(), 0.0f, 1.0f, 0.0f);
+	glRotatef(neptune.getYRotation() * SIMULATION_SPEED * 20.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	gluSphere(neptune.getSphere(), neptune.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
@@ -366,7 +366,7 @@ void display()
 	glBindTexture(GL_TEXTURE_2D, pluto.getTexture());
 	pluto.setYRotation(pluto.getYRotation() - pluto.getYRotationSpeed());
 	if (pluto.getYRotation() > 360.0f) pluto.setYRotation(pluto.getYRotation() - 360.0f);
-	glRotatef(pluto.getYRotation(), 0.0f, 1.0f, 0.0f);
+	glRotatef(pluto.getYRotation() * SIMULATION_SPEED * 20.0f, 0.0f, 1.0f, 0.0f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	gluSphere(pluto.getSphere(), pluto.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
