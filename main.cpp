@@ -388,7 +388,7 @@ void display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(CAMERA_X * SIZE, CAMERA_Y * SIZE, CAMERA_Z * SIZE); // Move back on the scene
+
 	glRotatef(CAMERA_X_ROTATION_ANGLE, 1.0f, 0.0f, 0.0f);
 	glRotatef(CAMERA_Y_ROTATION_ANGLE, 0.0f, 1.0f, 0.0f);
 	glRotatef(CAMERA_Z_ROTATION_ANGLE, 0.0f, 0.0f, 1.0f);
