@@ -388,6 +388,11 @@ void display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	GLfloat ambientColor[] = {0.6f,0.6f,0.6f,1.0f};
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientColor);
+
+	glEnable(GL_LIGHT0);
+
 
 	glRotatef(CAMERA_X_ROTATION_ANGLE, 1.0f, 0.0f, 0.0f);
 	glRotatef(CAMERA_Y_ROTATION_ANGLE, 0.0f, 1.0f, 0.0f);
