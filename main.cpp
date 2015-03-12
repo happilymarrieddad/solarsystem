@@ -33,9 +33,12 @@ const GLdouble WINDOW_Z_FAR = 1199254740992;
 const GLint WINDOW_FOV = 70;
 const GLdouble PI = 3.14159265359f;
 const GLfloat EARTH_ORBITAL_PERIOD = 365.26f;
-GLfloat WINDOW_X = 0.0f;
-GLfloat WINDOW_Y = 0.0f;
-GLfloat WINDOW_Z = -5000000.0f;
+GLfloat CAMERA_X = 0.0f;
+GLfloat CAMERA_Y = 0.0f;
+GLfloat CAMERA_Z = -5000000.0f;
+GLfloat CAMERA_X_ROTATION_ANGLE = 0.0f;
+GLfloat CAMERA_Y_ROTATION_ANGLE = 0.0f;
+GLfloat CAMERA_Z_ROTATION_ANGLE = 0.0f;
 GLfloat SIMULATION_SPEED = 0.000005f;
 GLfloat QUALITY = 64.0f;
 GLfloat SIZE = 1.0f;
@@ -385,8 +388,11 @@ void display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-
-	glTranslatef(WINDOW_X * SIZE,WINDOW_Y * SIZE,WINDOW_Z * SIZE); // Move back on the scene
+	glTranslatef(CAMERA_X * SIZE, CAMERA_Y * SIZE, CAMERA_Z * SIZE); // Move back on the scene
+	glRotatef(CAMERA_X_ROTATION_ANGLE, 1.0f, 0.0f, 0.0f);
+	glRotatef(CAMERA_Y_ROTATION_ANGLE, 0.0f, 1.0f, 0.0f);
+	glRotatef(CAMERA_Z_ROTATION_ANGLE, 0.0f, 0.0f, 1.0f);
+	glTranslatef(CAMERA_X * SIZE, CAMERA_Y * SIZE, CAMERA_Z * SIZE); // Move back on the scene
 
 
 

@@ -61,32 +61,58 @@ void keyOperations()
 	// Forward
 	if (keyStates['w'])
 	{
-		WINDOW_Z += 10000.0f;
+		CAMERA_Z += 10000.0f;
 	}
 	// Backward
 	if (keyStates['s'])
 	{
-		WINDOW_Z -= 10000.0f;
+		CAMERA_Z -= 10000.0f;
 	}
 	// Turn Left
 	if (keyStates['a'])
 	{
-		WINDOW_X += 10000.0f;
+		CAMERA_X += 10000.0f;
 	}
 	// Turn Right
 	if (keyStates['d'])
 	{
-		WINDOW_X -= 10000.0f;
+		CAMERA_X -= 10000.0f;
 	}
-	// Strafe Left
-	if (keyStates['q'])
+	// Look Up
+	if (keyStates['t'])
 	{
-		
+		CAMERA_X_ROTATION_ANGLE -= 0.5f;
+		if (CAMERA_X_ROTATION_ANGLE < 0.0f) CAMERA_X_ROTATION_ANGLE += 360.0f;
 	}
-	// Strafe Right
-	if (keyStates['e'])
+	// Look Down
+	if (keyStates['y'])
 	{
-		
+		CAMERA_X_ROTATION_ANGLE += 0.5f;
+		if (CAMERA_X_ROTATION_ANGLE) CAMERA_X_ROTATION_ANGLE -= 360.0f;
+	}
+	// Look Left
+	if (keyStates['g'])
+	{
+		CAMERA_Y_ROTATION_ANGLE -= 0.5f;
+		if (CAMERA_Y_ROTATION_ANGLE < 0.0f) CAMERA_Y_ROTATION_ANGLE += 360.0f;
+	}
+	// Look Right
+	if (keyStates['h'])
+	{
+		CAMERA_Y_ROTATION_ANGLE += 0.5f;
+		if (CAMERA_Y_ROTATION_ANGLE) CAMERA_Y_ROTATION_ANGLE -= 360.0f;
+	}
+	// Rotate Left
+	if (keyStates['b'])
+	{
+		CAMERA_Z_ROTATION_ANGLE -= 0.5f;
+		if (CAMERA_Z_ROTATION_ANGLE < 0.0f) CAMERA_Z_ROTATION_ANGLE += 360.0f;
+	}
+	// Rotate Right
+	if (keyStates['n'])
+	{
+		CAMERA_Z_ROTATION_ANGLE += 0.5f;
+		if (CAMERA_Z_ROTATION_ANGLE) CAMERA_Z_ROTATION_ANGLE -= 360.0f;
 	}
 	if (keyStates['-'])
 	{
@@ -103,7 +129,7 @@ void keyOperations()
 	if (keyStates['1'])
 	{
 		gluLookAt(
-			WINDOW_X, WINDOW_Y, WINDOW_Z,
+			CAMERA_X, CAMERA_Y, CAMERA_Z,
 			0.0f, 0.0f, 0.0f,
 			0.0f, 1.0f, 0.0f
 		);
