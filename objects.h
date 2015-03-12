@@ -8,8 +8,6 @@ Obj earth;
 Obj luna;
 
 Obj mars;
-Obj phobos;
-Obj deimos;
 
 Obj jupiter;
 Obj io;
