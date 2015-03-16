@@ -61,22 +61,22 @@ void keyOperations()
 	// Forward
 	if (keyStates['w'])
 	{
-		CAMERA_Z += 10000.0f;
+		camera.setPosZ(camera.getPosZ() + 100000.0f);
 	}
 	// Backward
 	if (keyStates['s'])
 	{
-		CAMERA_Z -= 10000.0f;
+		camera.setPosZ(camera.getPosZ() - 100000.0f);
 	}
 	// Turn Left
 	if (keyStates['a'])
 	{
-		CAMERA_X += 10000.0f;
+		camera.setPosX(camera.getPosX() + 100000.0f);
 	}
 	// Turn Right
 	if (keyStates['d'])
 	{
-		CAMERA_X -= 10000.0f;
+		camera.setPosX(camera.getPosX() - 100000.0f);
 	}
 	// Look Up
 	if (keyStates['t'])
@@ -128,16 +128,10 @@ void keyOperations()
 	// Look at Sol
 	if (keyStates['1'])
 	{
-		gluLookAt(
-			CAMERA_X, CAMERA_Y, CAMERA_Z,
-			0.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f
-		);
 	}
 	// Look at Mercury
 	if (keyStates['2'])
 	{
-		
 	}
 	// Look at Venus
 	if (keyStates['2'])

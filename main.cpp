@@ -33,9 +33,7 @@ const GLdouble WINDOW_Z_FAR = 1199254740992;
 const GLint WINDOW_FOV = 70;
 const GLdouble PI = 3.14159265359f;
 const GLfloat EARTH_ORBITAL_PERIOD = 365.26f;
-GLfloat CAMERA_X = 0.0f;
-GLfloat CAMERA_Y = 0.0f;
-GLfloat CAMERA_Z = -5000000.0f;
+
 GLfloat CAMERA_X_ROTATION_ANGLE = 0.0f;
 GLfloat CAMERA_Y_ROTATION_ANGLE = 0.0f;
 GLfloat CAMERA_Z_ROTATION_ANGLE = 0.0f;
@@ -48,16 +46,19 @@ bool* keySpecialStates = new bool[256]();
 bool* mouseStates = new bool[256]();
 
 #include "Obj.cpp"
+#include "objects.h"
 #include "Camera.cpp"
 Camera camera;
 #include "keyboard.h"
-#include "objects.h"
 
 // Global Functions
 void initialize();
 void display();
 void reshape(int width, int height);
 GLfloat randRotation() { return (GLdouble) (((int) (rand() * 684)) % 360); }
+void lookAt();
+void initObjects();
+void drawObjects();
 
 /***************************************************************************
 * main()
@@ -94,8 +95,75 @@ void initialize()
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_NORMALIZE);
 
+	initObjects();
+}
+
+/********************************************************************************
+* FUNCTION: Display()
+********************************************************************************/
+void display()
+{
+	glutKeyboardFunc(keyPressed);
+	glutKeyboardUpFunc(keyUp);
+	glutMouseFunc(mouse);
+	keyOperations();
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	lookAt();
+
+	drawObjects();
 
 
+	glutSwapBuffers();
+}
+
+/********************************************************************************
+* FUNCTION: Reshape()
+********************************************************************************/
+void reshape(int width, int height)
+{
+	if(height == 0) height = 1;
+	glViewport(0,0,(GLsizei)width, (GLsizei)height); // sets the viewport to the size of the window
+	glMatrixMode(GL_PROJECTION); // switch to the projection matrix so that we can manipulate how our scene is viewed
+	glLoadIdentity(); // resets matricies to avoid unusual rendering/artefacts
+	const GLdouble ASPECT = (GLfloat) width / (GLfloat) height;
+	gluPerspective(WINDOW_FOV,ASPECT,WINDOW_Z_NEAR,WINDOW_Z_FAR);
+
+	// Switch back to the Model View Matrix
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
+/*******************************************************************************
+* FUNCTION: Lookat()
+*******************************************************************************/
+void lookAt()
+{
+	gluLookAt(
+		camera.getPosX() * SIZE, camera.getPosY() * SIZE, camera.getPosZ() * SIZE,
+		camera.getCenterX(),camera.getCenterY(),camera.getCenterZ(),
+		camera.getUpX(),camera.getUpY(),camera.getUpZ()
+	);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void initObjects()
+{	
 	sun.setRadius(696000.0f * SIZE);
 
 	mercury.setRadius(2439.7f * SIZE);
@@ -371,35 +439,8 @@ void initialize()
     charon.setYRotationSpeed(MOON_ROTATION_SPEED_CONSTANT + compensation);
 }
 
-/********************************************************************************
-* FUNCTION: Display()
-********************************************************************************/
-void display()
+void drawObjects()
 {
-	glutKeyboardFunc(keyPressed);
-	glutKeyboardUpFunc(keyUp);
-	glutMouseFunc(mouse);
-	keyOperations();
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	glClearColor(0.0f,0.0f,0.0f,1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	GLfloat ambientColor[] = {0.6f,0.6f,0.6f,1.0f};
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientColor);
-
-	glEnable(GL_LIGHT0);
-
-
-	glRotatef(CAMERA_X_ROTATION_ANGLE, 1.0f, 0.0f, 0.0f);
-	glRotatef(CAMERA_Y_ROTATION_ANGLE, 0.0f, 1.0f, 0.0f);
-	glRotatef(CAMERA_Z_ROTATION_ANGLE, 0.0f, 0.0f, 1.0f);
-	glTranslatef(CAMERA_X * SIZE, CAMERA_Y * SIZE, CAMERA_Z * SIZE); // Move back on the scene
-
-
 
     glPushMatrix();
 	glRotatef(sun.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
@@ -847,35 +888,5 @@ void display()
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 	gluSphere(charon.getSphere(), charon.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
-
-
-
-
-	glutSwapBuffers();
 }
 
-/********************************************************************************
-* FUNCTION: Reshape()
-********************************************************************************/
-void reshape(int width, int height)
-{
-	if(height == 0) height = 1;
-	glViewport(0,0,(GLsizei)width, (GLsizei)height); // sets the viewport to the size of the window
-	glMatrixMode(GL_PROJECTION); // switch to the projection matrix so that we can manipulate how our scene is viewed
-	glLoadIdentity(); // resets matricies to avoid unusual rendering/artefacts
-	const GLdouble ASPECT = (GLfloat) width / (GLfloat) height;
-	gluPerspective(WINDOW_FOV,ASPECT,WINDOW_Z_NEAR,WINDOW_Z_FAR);
-
-	// Switch back to the Model View Matrix
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-}
-
-
-	/*
-	glTranslatef(
-		(cos(CURRENT_TIME * (jupiter.getOrbitalDays() / 10000.0f))) * jupiter.getDistance(),
-		jupiter.getYLocation(),
-		(sin(CURRENT_TIME * (jupiter.getOrbitalDays() / 10000.0f))) * jupiter.getDistance()
-	);
-	*/

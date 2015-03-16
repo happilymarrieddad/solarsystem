@@ -10,9 +10,9 @@ public:
 	GLdouble getOrbitalDays() { return orbitalDays; }
 	GLdouble getAngleOfRotation(GLfloat speed);
 	GLdouble getDistance() { return distance; }
-	GLfloat getXLocation() { return xLocation; }
-	GLfloat getYLocation() { return yLocation; }
-	GLfloat getZLocation() { return zLocation; }
+	GLfloat getXLocation() { return 0.0f; }
+	GLfloat getYLocation() { return 0.0f; }
+	GLfloat getZLocation() { return 0.0f; }
 	GLfloat getYRotation() { return yRotation; }
 	GLfloat getYRotationSpeed() { return yRotationSpeed; }
 
@@ -20,9 +20,6 @@ public:
 	void setRadius(GLdouble r) { radius = r; }
 	void setOrbitalDays(GLdouble o) { orbitalDays = o; }
 	void setDistance(GLdouble d) { distance = d; }
-	void setXLocation(GLfloat x) { xLocation = x; }
-	void setYLocation(GLfloat y) { yLocation = y; }
-	void setZLocation(GLfloat z) { zLocation = z; }
 	void setAngleOfRotation(GLdouble a) { angle_of_rotation = a; }
 	void setYRotation(GLfloat y) { yRotation = y; }
 	void setYRotationSpeed(GLfloat y) { yRotationSpeed = y; }
@@ -34,9 +31,6 @@ private:
 	GLdouble orbitalDays;
 	GLdouble distance;
 	GLdouble angle_of_rotation;
-	GLfloat xLocation;
-	GLfloat yLocation;
-	GLfloat zLocation;
 	GLfloat yRotation;
 	GLfloat yRotationSpeed;
 };

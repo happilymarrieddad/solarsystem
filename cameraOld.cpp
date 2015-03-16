@@ -5,7 +5,6 @@ public:
 	~Camera();
 
 	void lookAt(GLfloat x, GLfloat y, GLfloat z);
-	void reset();
 
 	GLfloat getPosX() { return pos_x; }
 	GLfloat getPosY() { return pos_y; }
@@ -62,19 +61,6 @@ void Camera::lookAt(GLfloat x, GLfloat y, GLfloat z)
 	this->setPosX(x);
 	this->setPosY(y);
 	this->setPosZ(z);
-}
-
-void Camera::reset()
-{
-	pos_x = 0.0f;
-	pos_y = 0.0f;
-	pos_z = -5000000.0f;
-	center_x = 0.0f;
-	center_y = 0.0f;
-	center_z = 0.0f;
-	up_x = 0.0f;
-	up_y = 1.0f;
-	up_z = 0.0f;
 }
 
 
