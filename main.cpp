@@ -300,48 +300,48 @@ void initObjects()
 
 
 
-    sun.setTexture("sun.bmp");
+    sun.setTexture("images/sun.bmp");
     
-    mercury.setTexture("mercurymap.bmp");
+    mercury.setTexture("images/mercurymap.bmp");
     
-    venus.setTexture("venus.bmp");
+    venus.setTexture("images/venus.bmp");
     
-    earth.setTexture("earth.bmp");
-    luna.setTexture("luna.bmp");
+    earth.setTexture("images/earth.bmp");
+    luna.setTexture("images/luna.bmp");
     
-    mars.setTexture("mars.bmp");
+    mars.setTexture("images/mars.bmp");
     
-    jupiter.setTexture("jupiter.bmp");
-    io.setTexture("io.bmp");
-    europa.setTexture("europa.bmp");
-    ganymede.setTexture("ganymede.bmp");
-    callisto.setTexture("callisto.bmp");
+    jupiter.setTexture("images/jupiter.bmp");
+    io.setTexture("images/io.bmp");
+    europa.setTexture("images/europa.bmp");
+    ganymede.setTexture("images/ganymede.bmp");
+    callisto.setTexture("images/callisto.bmp");
     
-    saturn.setTexture("saturn.bmp");
-    mimas.setTexture("mimas.bmp");
-    enceladus.setTexture("enceladus.bmp");
-    tethys.setTexture("tethys.bmp");
-    dione.setTexture("dione.bmp");
-    rhea.setTexture("rhea.bmp");
-    titan.setTexture("titan.bmp");
-    hyperion.setTexture("hyperion.bmp");
-    iapetus.setTexture("iapetus.bmp");
-    phoebe.setTexture("phoebe.bmp");
+    saturn.setTexture("images/saturn.bmp");
+    mimas.setTexture("images/mimas.bmp");
+    enceladus.setTexture("images/enceladus.bmp");
+    tethys.setTexture("images/tethys.bmp");
+    dione.setTexture("images/dione.bmp");
+    rhea.setTexture("images/rhea.bmp");
+    titan.setTexture("images/titan.bmp");
+    hyperion.setTexture("images/hyperion.bmp");
+    iapetus.setTexture("images/iapetus.bmp");
+    phoebe.setTexture("images/phoebe.bmp");
     
-    uranus.setTexture("uranus.bmp");
-    miranda.setTexture("miranda.bmp");
-    ariel.setTexture("ariel.bmp");
-    umbriel.setTexture("moonmap.bmp");
-    titania.setTexture("titania.bmp");
-    oberon.setTexture("oberon.bmp");
+    uranus.setTexture("images/uranus.bmp");
+    miranda.setTexture("images/miranda.bmp");
+    ariel.setTexture("images/ariel.bmp");
+    umbriel.setTexture("images/moonmap.bmp");
+    titania.setTexture("images/titania.bmp");
+    oberon.setTexture("images/oberon.bmp");
     
-    neptune.setTexture("neptune.bmp");
-    proteus.setTexture("proteus.bmp");
-    triton.setTexture("triton.bmp");
-    nereid.setTexture("moonmap.bmp");
+    neptune.setTexture("images/neptune.bmp");
+    proteus.setTexture("images/proteus.bmp");
+    triton.setTexture("images/triton.bmp");
+    nereid.setTexture("images/moonmap.bmp");
     
-    pluto.setTexture("plutomap.bmp");
-    charon.setTexture("charon.bmp");
+    pluto.setTexture("images/plutomap.bmp");
+    charon.setTexture("images/charon.bmp");
 
 
 

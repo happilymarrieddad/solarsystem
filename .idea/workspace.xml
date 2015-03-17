@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5b1c72fe-17b6-4fc4-a23c-1755bead22de" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/solarsystem.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/game" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Ice.bmp" afterPath="$PROJECT_DIR$/images/Ice.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Particle.bmp" afterPath="$PROJECT_DIR$/images/Particle.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/ariel.bmp" afterPath="$PROJECT_DIR$/images/ariel.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/callisto.bmp" afterPath="$PROJECT_DIR$/images/callisto.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/callisto.jpg" afterPath="$PROJECT_DIR$/images/callisto.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/cameraOld.cpp" afterPath="$PROJECT_DIR$/images/cameraOld.cpp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/charon.bmp" afterPath="$PROJECT_DIR$/images/charon.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/dione.bmp" afterPath="$PROJECT_DIR$/images/dione.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/earth.bmp" afterPath="$PROJECT_DIR$/images/earth.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/enceladus.bmp" afterPath="$PROJECT_DIR$/images/enceladus.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/europa.bmp" afterPath="$PROJECT_DIR$/images/europa.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/europa.jpg" afterPath="$PROJECT_DIR$/images/europa.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/ganymede.bmp" afterPath="$PROJECT_DIR$/images/ganymede.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/ganymede.jpg" afterPath="$PROJECT_DIR$/images/ganymede.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/hyperion.bmp" afterPath="$PROJECT_DIR$/images/hyperion.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/iapetus.bmp" afterPath="$PROJECT_DIR$/images/iapetus.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/io.bmp" afterPath="$PROJECT_DIR$/images/io.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/io.jpg" afterPath="$PROJECT_DIR$/images/io.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/jupiter.bmp" afterPath="$PROJECT_DIR$/images/jupiter.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/luna.bmp" afterPath="$PROJECT_DIR$/images/luna.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mars.bmp" afterPath="$PROJECT_DIR$/images/mars.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mercurymap.bmp" afterPath="$PROJECT_DIR$/images/mercurymap.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mimas.bmp" afterPath="$PROJECT_DIR$/images/mimas.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/miranda.bmp" afterPath="$PROJECT_DIR$/images/miranda.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/neptune.bmp" afterPath="$PROJECT_DIR$/images/neptune.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/oberon.bmp" afterPath="$PROJECT_DIR$/images/oberon.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/phobos.jpg" afterPath="$PROJECT_DIR$/images/phobos.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/phoebe.bmp" afterPath="$PROJECT_DIR$/images/phoebe.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/plutomap.bmp" afterPath="$PROJECT_DIR$/images/plutomap.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/proteus.bmp" afterPath="$PROJECT_DIR$/images/proteus.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rhea.bmp" afterPath="$PROJECT_DIR$/images/rhea.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/saturn.bmp" afterPath="$PROJECT_DIR$/images/saturn.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/saturnringmap.bmp" afterPath="$PROJECT_DIR$/images/saturnringmap.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/sun.bmp" afterPath="$PROJECT_DIR$/images/sun.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tethys.bmp" afterPath="$PROJECT_DIR$/images/tethys.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/titan.bmp" afterPath="$PROJECT_DIR$/images/titan.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/titania.bmp" afterPath="$PROJECT_DIR$/images/titania.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/triton.bmp" afterPath="$PROJECT_DIR$/images/triton.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/uranus.bmp" afterPath="$PROJECT_DIR$/images/uranus.bmp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/venus.bmp" afterPath="$PROJECT_DIR$/images/venus.bmp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model" afterPath="$PROJECT_DIR$/model" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
+    </list>
+    <ignored path="solarsystem.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="solarsystem" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="main.cpp" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="308" column="41" selection-start="9394" selection-end="9394" vertical-scroll-proportion="0.21550591" vertical-offset="5380" max-vertical-offset="16164">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/main.cpp" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="830" />
+    <option name="y" value="283" />
+    <option name="width" value="1085" />
+    <option name="height" value="905" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solarsystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solarsystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="solarsystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/images" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
+    <list size="0" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5b1c72fe-17b6-4fc4-a23c-1755bead22de" name="Default" comment="" />
+      <created>1426579278696</created>
+      <updated>1426579278696</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="830" y="283" width="1085" height="905" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24976958" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="308" column="41" selection-start="9394" selection-end="9394" vertical-scroll-proportion="0.21550591" vertical-offset="5380" max-vertical-offset="16164">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+
