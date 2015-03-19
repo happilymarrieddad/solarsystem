@@ -40,7 +40,8 @@ GLfloat CAMERA_Z_ROTATION_ANGLE = 0.0f;
 GLfloat SIMULATION_SPEED = 0.000005f;
 GLfloat QUALITY = 64.0f;
 GLfloat SIZE = 1.0f;
-GLfloat CURRENT_TIME = 100.0f;
+GLfloat CURRENT_TIME = 0.0f;
+bool ACTUAL_DISTANCE = false;
 bool* keyStates = new bool[256]();
 bool* keySpecialStates = new bool[256]();
 bool* mouseStates = new bool[256]();
@@ -103,6 +104,7 @@ void initialize()
 ********************************************************************************/
 void display()
 {
+    CURRENT_TIME += 0.01f;
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
 	glutMouseFunc(mouse);
@@ -115,7 +117,6 @@ void display()
 	lookAt();
 
 	drawObjects();
-
 
 	glutSwapBuffers();
 }
@@ -142,7 +143,7 @@ void reshape(int width, int height)
 *******************************************************************************/
 void lookAt()
 {
-	gluLookAt(
+	gluLookAt (
 		camera.getPosX() * SIZE, camera.getPosY() * SIZE, camera.getPosZ() * SIZE,
 		camera.getCenterX(),camera.getCenterY(),camera.getCenterZ(),
 		camera.getUpX(),camera.getUpY(),camera.getUpZ()
@@ -209,48 +210,92 @@ void initObjects()
 
 
 
+    if (ACTUAL_DISTANCE)
+    {
+        mercury.setDistance((sun.getRadius() + 57910000.0f) * SIZE);
 
-    mercury.setDistance(750000.0f * SIZE);
-    
-    venus.setDistance(780000.0f * SIZE);
-    
-    earth.setDistance(810000.0f * SIZE);
-    luna.setDistance(15384.0f * SIZE);
-    
-    mars.setDistance(840000.0f * SIZE);
-    
-    jupiter.setDistance(2000000.0f * SIZE);
-    io.setDistance(76000 * SIZE);
-    europa.setDistance(80000 * SIZE);
-    ganymede.setDistance(85000 * SIZE);
-    callisto.setDistance(90000 * SIZE);
-    
-    saturn.setDistance(3000000.0f * SIZE);
-	mimas.setDistance(63000.0f * SIZE);
-	enceladus.setDistance(64000.0f * SIZE);
-	tethys.setDistance(65000.0f * SIZE);
-	dione.setDistance(66000.0f * SIZE);
-	rhea.setDistance(67000.0f * SIZE);
-	titan.setDistance(68000.0f * SIZE);
-	hyperion.setDistance(69000.0f * SIZE);
-	iapetus.setDistance(71000.0f * SIZE);
-	phoebe.setDistance(72000.0f * SIZE);
-    
-    uranus.setDistance(4000000.0f * SIZE);
-	miranda.setDistance(28000.0f * SIZE);
-	ariel.setDistance(30000.0f * SIZE);
-	umbriel.setDistance(32000.0f * SIZE);
-	titania.setDistance(34000.0f * SIZE);
-	oberon.setDistance(36000.0f * SIZE);
-    
-    neptune.setDistance(5000000.0f * SIZE);
-	proteus.setDistance(28000.0f * SIZE);
-	triton.setDistance(31000.0f * SIZE);
-	nereid.setDistance(32000.0f * SIZE);
-    
-    pluto.setDistance(6000000.0f * SIZE);
-	charon.setDistance(3000.0f * SIZE);
+        venus.setDistance((sun.getRadius() + 108200000.0f) * SIZE);
 
+        earth.setDistance((sun.getRadius() + 149600000.0f) * SIZE);
+        luna.setDistance((earth.getRadius() + 384000.0f) * SIZE);
+
+        mars.setDistance((sun.getRadius() + 227940000.0f) * SIZE);
+
+        jupiter.setDistance((sun.getRadius() + 778330000.0f) * SIZE);
+        io.setDistance((jupiter.getRadius() + 422000.0f) * SIZE);
+        europa.setDistance((jupiter.getRadius() + 671000.0f) * SIZE);
+        ganymede.setDistance((jupiter.getRadius() + 1070000.0f) * SIZE);
+        callisto.setDistance((jupiter.getRadius() + 1883000.0f) * SIZE);
+
+        saturn.setDistance((sun.getRadius() + 1429400000.0f) * SIZE);
+        mimas.setDistance((saturn.getRadius() + 186000.0f) * SIZE);
+        enceladus.setDistance((saturn.getRadius() + 238000.0f) * SIZE);
+        tethys.setDistance((saturn.getRadius() + 295000.0f) * SIZE);
+        dione.setDistance((saturn.getRadius() + 377000.0f) * SIZE);
+        rhea.setDistance((saturn.getRadius() + 527000.0f) * SIZE);
+        titan.setDistance((saturn.getRadius() + 1222000.0f) * SIZE);
+        hyperion.setDistance((saturn.getRadius() + 1481000.0f) * SIZE);
+        iapetus.setDistance((saturn.getRadius() + 3561000.0f) * SIZE);
+        phoebe.setDistance((saturn.getRadius() + 12952000.0f) * SIZE);
+
+        uranus.setDistance((sun.getRadius() + 2870990000.0f) * SIZE);
+        miranda.setDistance((uranus.getRadius() + 130000.0f) * SIZE);
+        ariel.setDistance((uranus.getRadius() + 191000.0f) * SIZE);
+        umbriel.setDistance((uranus.getRadius() + 266000.0f) * SIZE);
+        titania.setDistance((uranus.getRadius() + 436000.0f) * SIZE);
+        oberon.setDistance((uranus.getRadius() + 583000.0f) * SIZE);
+
+        neptune.setDistance((sun.getRadius() + 4504300000.0f) * SIZE);
+        proteus.setDistance((neptune.getRadius() + 118000.0f) * SIZE);
+        triton.setDistance((neptune.getRadius() + 355000.0f) * SIZE);
+        nereid.setDistance((neptune.getRadius() + 5513000.0f) * SIZE);
+
+        pluto.setDistance((sun.getRadius() + 5913520000.0f) * SIZE);
+        charon.setDistance((pluto.getRadius() + 20000.0f) * SIZE);
+    }
+    else
+    {
+        mercury.setDistance(750000.0f * SIZE);
+
+        venus.setDistance(780000.0f * SIZE);
+
+        earth.setDistance(810000.0f * SIZE);
+        luna.setDistance(15384.0f * SIZE);
+
+        mars.setDistance(840000.0f * SIZE);
+
+        jupiter.setDistance(2000000.0f * SIZE);
+        io.setDistance(76000 * SIZE);
+        europa.setDistance(80000 * SIZE);
+        ganymede.setDistance(85000 * SIZE);
+        callisto.setDistance(90000 * SIZE);
+
+        saturn.setDistance(3000000.0f * SIZE);
+        mimas.setDistance(63000.0f * SIZE);
+        enceladus.setDistance(64000.0f * SIZE);
+        tethys.setDistance(65000.0f * SIZE);
+        dione.setDistance(66000.0f * SIZE);
+        rhea.setDistance(67000.0f * SIZE);
+        titan.setDistance(68000.0f * SIZE);
+        hyperion.setDistance(69000.0f * SIZE);
+        iapetus.setDistance(71000.0f * SIZE);
+        phoebe.setDistance(72000.0f * SIZE);
+
+        uranus.setDistance(4000000.0f * SIZE);
+        miranda.setDistance(28000.0f * SIZE);
+        ariel.setDistance(30000.0f * SIZE);
+        umbriel.setDistance(32000.0f * SIZE);
+        titania.setDistance(34000.0f * SIZE);
+        oberon.setDistance(36000.0f * SIZE);
+
+        neptune.setDistance(5000000.0f * SIZE);
+        proteus.setDistance(28000.0f * SIZE);
+        triton.setDistance(31000.0f * SIZE);
+        nereid.setDistance(32000.0f * SIZE);
+
+        pluto.setDistance(6000000.0f * SIZE);
+        charon.setDistance(3000.0f * SIZE);
+    }
 
 
 
@@ -441,6 +486,93 @@ void initObjects()
 
 void drawObjects()
 {
+
+    if (ACTUAL_DISTANCE)
+    {
+        mercury.setDistance((sun.getRadius() + 57910000.0f) * SIZE);
+
+        venus.setDistance((sun.getRadius() + 108200000.0f) * SIZE);
+
+        earth.setDistance((sun.getRadius() + 149600000.0f) * SIZE);
+        luna.setDistance((earth.getRadius() + 384000.0f) * SIZE);
+
+        mars.setDistance((sun.getRadius() + 227940000.0f) * SIZE);
+
+        jupiter.setDistance((sun.getRadius() + 778330000.0f) * SIZE);
+        io.setDistance((jupiter.getRadius() + 422000.0f) * SIZE);
+        europa.setDistance((jupiter.getRadius() + 671000.0f) * SIZE);
+        ganymede.setDistance((jupiter.getRadius() + 1070000.0f) * SIZE);
+        callisto.setDistance((jupiter.getRadius() + 1883000.0f) * SIZE);
+
+        saturn.setDistance((sun.getRadius() + 1429400000.0f) * SIZE);
+        mimas.setDistance((saturn.getRadius() + 186000.0f) * SIZE);
+        enceladus.setDistance((saturn.getRadius() + 238000.0f) * SIZE);
+        tethys.setDistance((saturn.getRadius() + 295000.0f) * SIZE);
+        dione.setDistance((saturn.getRadius() + 377000.0f) * SIZE);
+        rhea.setDistance((saturn.getRadius() + 527000.0f) * SIZE);
+        titan.setDistance((saturn.getRadius() + 1222000.0f) * SIZE);
+        hyperion.setDistance((saturn.getRadius() + 1481000.0f) * SIZE);
+        iapetus.setDistance((saturn.getRadius() + 3561000.0f) * SIZE);
+        phoebe.setDistance((saturn.getRadius() + 12952000.0f) * SIZE);
+
+        uranus.setDistance((sun.getRadius() + 2870990000.0f) * SIZE);
+        miranda.setDistance((uranus.getRadius() + 130000.0f) * SIZE);
+        ariel.setDistance((uranus.getRadius() + 191000.0f) * SIZE);
+        umbriel.setDistance((uranus.getRadius() + 266000.0f) * SIZE);
+        titania.setDistance((uranus.getRadius() + 436000.0f) * SIZE);
+        oberon.setDistance((uranus.getRadius() + 583000.0f) * SIZE);
+
+        neptune.setDistance((sun.getRadius() + 4504300000.0f) * SIZE);
+        proteus.setDistance((neptune.getRadius() + 118000.0f) * SIZE);
+        triton.setDistance((neptune.getRadius() + 355000.0f) * SIZE);
+        nereid.setDistance((neptune.getRadius() + 5513000.0f) * SIZE);
+
+        pluto.setDistance((sun.getRadius() + 5913520000.0f) * SIZE);
+        charon.setDistance((pluto.getRadius() + 20000.0f) * SIZE);
+    }
+    else
+    {
+        mercury.setDistance(750000.0f * SIZE);
+
+        venus.setDistance(780000.0f * SIZE);
+
+        earth.setDistance(810000.0f * SIZE);
+        luna.setDistance(15384.0f * SIZE);
+
+        mars.setDistance(840000.0f * SIZE);
+
+        jupiter.setDistance(2000000.0f * SIZE);
+        io.setDistance(76000 * SIZE);
+        europa.setDistance(80000 * SIZE);
+        ganymede.setDistance(85000 * SIZE);
+        callisto.setDistance(90000 * SIZE);
+
+        saturn.setDistance(3000000.0f * SIZE);
+        mimas.setDistance(63000.0f * SIZE);
+        enceladus.setDistance(64000.0f * SIZE);
+        tethys.setDistance(65000.0f * SIZE);
+        dione.setDistance(66000.0f * SIZE);
+        rhea.setDistance(67000.0f * SIZE);
+        titan.setDistance(68000.0f * SIZE);
+        hyperion.setDistance(69000.0f * SIZE);
+        iapetus.setDistance(71000.0f * SIZE);
+        phoebe.setDistance(72000.0f * SIZE);
+
+        uranus.setDistance(4000000.0f * SIZE);
+        miranda.setDistance(28000.0f * SIZE);
+        ariel.setDistance(30000.0f * SIZE);
+        umbriel.setDistance(32000.0f * SIZE);
+        titania.setDistance(34000.0f * SIZE);
+        oberon.setDistance(36000.0f * SIZE);
+
+        neptune.setDistance(5000000.0f * SIZE);
+        proteus.setDistance(28000.0f * SIZE);
+        triton.setDistance(31000.0f * SIZE);
+        nereid.setDistance(32000.0f * SIZE);
+
+        pluto.setDistance(6000000.0f * SIZE);
+        charon.setDistance(3000.0f * SIZE);
+    }
 
     glPushMatrix();
 	glRotatef(sun.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);

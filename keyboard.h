@@ -122,7 +122,14 @@ void keyOperations()
 	{
 		SIMULATION_SPEED += 0.0001f;
 	}
-
+    if (keyStates['y'])
+    {
+        ACTUAL_DISTANCE = true;
+    }
+    else if (!keyStates['y'])
+    {
+        ACTUAL_DISTANCE = false;
+    }
 
 
 	// Look at Sol
