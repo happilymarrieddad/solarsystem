@@ -17,6 +17,18 @@ void keyUp(unsigned char key, int x, int y)
 }
 
 /***************************************************************************
+* FUNCTION: Special Key Pressed
+***************************************************************************/
+void specialKeyPressed(int key, int x, int y)
+{
+    for (int i = 0; i < 256; i++)
+    {
+        keySpecialStates[i] = false;
+    }
+    keySpecialStates[key] = true;
+}
+
+/***************************************************************************
 * FUNCTION: Mouse - When 1 or more buttons are pressed
 ***************************************************************************/
 void mouse(int button, int state, int x, int y) 
@@ -53,6 +65,15 @@ void mouse(int button, int state, int x, int y)
 	}
 }
 
+/***************************************************************************
+* FUNCTION: Passive Mouse
+***************************************************************************/
+void passiveMouse(int x, int y)
+{
+
+    glutWarpPointer(1024/2,768/2);
+}
+
 /********************************************************************************
 * FUNCTION: Key Operations
 ********************************************************************************/
@@ -61,59 +82,25 @@ void keyOperations()
 	// Forward
 	if (keyStates['w'])
 	{
-		camera.setPosZ(camera.getPosZ() + 100000.0f);
+	    camera.offsetPosition(camera.forward() * MOVE_SPEED);
 	}
 	// Backward
 	if (keyStates['s'])
 	{
-		camera.setPosZ(camera.getPosZ() - 100000.0f);
+	    camera.offsetPosition(-camera.forward() * MOVE_SPEED);
 	}
-	// Turn Left
-	if (keyStates['a'])
+
+
+	if (keyStates['q'])
 	{
-		camera.setPosX(camera.getPosX() + 100000.0f);
+	    camera.offsetOrientation(1.0f, 1.0f);
 	}
-	// Turn Right
-	if (keyStates['d'])
+	if (keyStates['e'])
 	{
-		camera.setPosX(camera.getPosX() - 100000.0f);
+	    camera.offsetOrientation(-1.0f, -1.0f);
 	}
-	// Look Up
-	if (keyStates['t'])
-	{
-		CAMERA_X_ROTATION_ANGLE -= 0.5f;
-		if (CAMERA_X_ROTATION_ANGLE < 0.0f) CAMERA_X_ROTATION_ANGLE += 360.0f;
-	}
-	// Look Down
-	if (keyStates['y'])
-	{
-		CAMERA_X_ROTATION_ANGLE += 0.5f;
-		if (CAMERA_X_ROTATION_ANGLE) CAMERA_X_ROTATION_ANGLE -= 360.0f;
-	}
-	// Look Left
-	if (keyStates['g'])
-	{
-		CAMERA_Y_ROTATION_ANGLE -= 0.5f;
-		if (CAMERA_Y_ROTATION_ANGLE < 0.0f) CAMERA_Y_ROTATION_ANGLE += 360.0f;
-	}
-	// Look Right
-	if (keyStates['h'])
-	{
-		CAMERA_Y_ROTATION_ANGLE += 0.5f;
-		if (CAMERA_Y_ROTATION_ANGLE) CAMERA_Y_ROTATION_ANGLE -= 360.0f;
-	}
-	// Rotate Left
-	if (keyStates['b'])
-	{
-		CAMERA_Z_ROTATION_ANGLE -= 0.5f;
-		if (CAMERA_Z_ROTATION_ANGLE < 0.0f) CAMERA_Z_ROTATION_ANGLE += 360.0f;
-	}
-	// Rotate Right
-	if (keyStates['n'])
-	{
-		CAMERA_Z_ROTATION_ANGLE += 0.5f;
-		if (CAMERA_Z_ROTATION_ANGLE) CAMERA_Z_ROTATION_ANGLE -= 360.0f;
-	}
+
+
 	if (keyStates['-'])
 	{
 		if (SIMULATION_SPEED > 0.0f) SIMULATION_SPEED -= 0.0001f;
@@ -130,7 +117,10 @@ void keyOperations()
     {
         ACTUAL_DISTANCE = false;
     }
-
+    if (keySpecialStates[GLUT_KEY_F12])
+    {
+        exit(0);
+    }
 
 	// Look at Sol
 	if (keyStates['1'])

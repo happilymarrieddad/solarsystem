@@ -15,22 +15,21 @@
 #include <fstream>
 #include <vector>
 #include <cstdint>
+#include <stdexcept>
 
 // OpenGL includes
 #include <GL/glu.h>
 #include <GL/glut.h>
+#define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 // Namespace
 using namespace std;
 #include "Image.cpp"
 
 // Global Variables
-const GLint WINDOW_WIDTH = 1024;
-const GLint WINDOW_HEIGHT = 768;
-const GLint WINDOW_Z_NEAR = 1;
-const GLdouble WINDOW_Z_FAR = 1199254740992;
-const GLint WINDOW_FOV = 70;
 const GLdouble PI = 3.14159265359f;
 const GLfloat EARTH_ORBITAL_PERIOD = 365.26f;
 
@@ -41,6 +40,9 @@ GLfloat SIMULATION_SPEED = 0.000005f;
 GLfloat QUALITY = 64.0f;
 GLfloat SIZE = 1.0f;
 GLfloat CURRENT_TIME = 0.0f;
+const GLfloat MaxVerticalAngle = 85.0f;
+GLfloat MOVE_SPEED = 100000.0f;
+GLfloat MOVE_SENSITIVITY = 0.001f;
 bool ACTUAL_DISTANCE = false;
 bool* keyStates = new bool[256]();
 bool* keySpecialStates = new bool[256]();
@@ -69,8 +71,8 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);               // Initialize glut
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH); // Requesting Buffers
-	glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
-	glutInitWindowPosition(100,100);
+	glutInitWindowSize(1024.,768);
+	glutInitWindowPosition(300,200);
 	glutCreateWindow("Nick's 3D Solar System Modeler");
 	initialize();
 	glutDisplayFunc(display);              // Tell glut to use display function
@@ -96,6 +98,9 @@ void initialize()
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_NORMALIZE);
 
+    glutSetCursor(GLUT_CURSOR_NONE);
+    glutWarpPointer(1024/2,768/2);
+
 	initObjects();
 }
 
@@ -107,7 +112,9 @@ void display()
     CURRENT_TIME += 0.01f;
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
+	glutSpecialFunc(specialKeyPressed);
 	glutMouseFunc(mouse);
+	glutPassiveMotionFunc(passiveMouse);
 	keyOperations();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -131,7 +138,7 @@ void reshape(int width, int height)
 	glMatrixMode(GL_PROJECTION); // switch to the projection matrix so that we can manipulate how our scene is viewed
 	glLoadIdentity(); // resets matricies to avoid unusual rendering/artefacts
 	const GLdouble ASPECT = (GLfloat) width / (GLfloat) height;
-	gluPerspective(WINDOW_FOV,ASPECT,WINDOW_Z_NEAR,WINDOW_Z_FAR);
+	gluPerspective(camera.fieldOfView(),camera.viewportAspectRatio(),camera.nearPlane(),camera.farPlane());
 
 	// Switch back to the Model View Matrix
 	glMatrixMode(GL_MODELVIEW);
@@ -143,19 +150,23 @@ void reshape(int width, int height)
 *******************************************************************************/
 void lookAt()
 {
-	gluLookAt (
-		camera.getPosX() * SIZE, camera.getPosY() * SIZE, camera.getPosZ() * SIZE,
-		camera.getCenterX(),camera.getCenterY(),camera.getCenterZ(),
-		camera.getUpX(),camera.getUpY(),camera.getUpZ()
-	);
+    if (CURRENT_TIME > 0.5f)
+    {
+        cout << "Camera.x: " << camera.position()[0] << endl
+             << "Camera.y: " << camera.position()[1] << endl
+             << "Camera.z: " << camera.position()[2] << endl
+             << "Right.x: " << camera.position()[0] + camera.right()[0] << endl
+             << "Right.y: " << camera.position()[1] + camera.right()[1] << endl
+             << "Right.z: " << camera.position()[2] + camera.right()[2] << endl
+             << "Up.x: " << camera.up()[0] << endl
+             << "Up.y: " << camera.up()[1] << endl
+             << "Up.z: " << camera.up()[2] << endl << endl;
+
+
+        CURRENT_TIME -= 0.5f;
+    }
+
 }
-
-
-
-
-
-
-
 
 
 
@@ -482,6 +493,7 @@ void initObjects()
     
     pluto.setYRotationSpeed((earth.getYRotationSpeed() / 6.39f) + compensation);
     charon.setYRotationSpeed(MOON_ROTATION_SPEED_CONSTANT + compensation);
+
 }
 
 void drawObjects()
