@@ -53,6 +53,14 @@ void mouse(int button, int state, int x, int y)
 	}
 }
 
+/******************************************************************************
+* FUNCTION: Passive Mouse
+******************************************************************************/
+void mousePassive(int x, int y)
+{
+    camera->handleMouseMove(x,y);
+}
+
 /********************************************************************************
 * FUNCTION: Key Operations
 ********************************************************************************/
@@ -61,58 +69,27 @@ void keyOperations()
 	// Forward
 	if (keyStates['w'])
 	{
-		camera.setPosZ(camera.getPosZ() + 100000.0f);
-	}
+	    camera->forward = true;
+	} else camera->forward = false;
 	// Backward
 	if (keyStates['s'])
 	{
-		camera.setPosZ(camera.getPosZ() - 100000.0f);
-	}
+	    camera->backward = true;
+	} else camera->backward = false;
 	// Turn Left
 	if (keyStates['a'])
 	{
-		camera.setPosX(camera.getPosX() + 100000.0f);
-	}
+	    camera->left = true;
+	} else camera->left = false;
 	// Turn Right
 	if (keyStates['d'])
 	{
-		camera.setPosX(camera.getPosX() - 100000.0f);
-	}
-	// Look Up
-	if (keyStates['t'])
+	    camera->right = true;
+	} else camera->right = false;
+	// quit
+	if (keyStates['q'])
 	{
-		CAMERA_X_ROTATION_ANGLE -= 0.5f;
-		if (CAMERA_X_ROTATION_ANGLE < 0.0f) CAMERA_X_ROTATION_ANGLE += 360.0f;
-	}
-	// Look Down
-	if (keyStates['y'])
-	{
-		CAMERA_X_ROTATION_ANGLE += 0.5f;
-		if (CAMERA_X_ROTATION_ANGLE) CAMERA_X_ROTATION_ANGLE -= 360.0f;
-	}
-	// Look Left
-	if (keyStates['g'])
-	{
-		CAMERA_Y_ROTATION_ANGLE -= 0.5f;
-		if (CAMERA_Y_ROTATION_ANGLE < 0.0f) CAMERA_Y_ROTATION_ANGLE += 360.0f;
-	}
-	// Look Right
-	if (keyStates['h'])
-	{
-		CAMERA_Y_ROTATION_ANGLE += 0.5f;
-		if (CAMERA_Y_ROTATION_ANGLE) CAMERA_Y_ROTATION_ANGLE -= 360.0f;
-	}
-	// Rotate Left
-	if (keyStates['b'])
-	{
-		CAMERA_Z_ROTATION_ANGLE -= 0.5f;
-		if (CAMERA_Z_ROTATION_ANGLE < 0.0f) CAMERA_Z_ROTATION_ANGLE += 360.0f;
-	}
-	// Rotate Right
-	if (keyStates['n'])
-	{
-		CAMERA_Z_ROTATION_ANGLE += 0.5f;
-		if (CAMERA_Z_ROTATION_ANGLE) CAMERA_Z_ROTATION_ANGLE -= 360.0f;
+	    exit(0);
 	}
 	if (keyStates['-'])
 	{

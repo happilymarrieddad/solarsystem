@@ -1,89 +1,105 @@
-class Camera
+#include "Camera.h"
+
+const double Camera::TO_RADS = 3.141592654 / 180.0;
+ 
+Camera::Camera(float theWindowWidth, float theWindowHeight)
 {
-public:
-	Camera();
-	~Camera();
-
-	void lookAt(GLfloat x, GLfloat y, GLfloat z);
-	void reset();
-
-	GLfloat getPosX() { return pos_x; }
-	GLfloat getPosY() { return pos_y; }
-	GLfloat getPosZ() { return pos_z; }
-	GLfloat getCenterX() { return center_x; }
-	GLfloat getCenterY() { return center_y; }
-	GLfloat getCenterZ() { return center_z; }
-	GLfloat getUpX() { return up_x; }
-	GLfloat getUpY() { return up_y; }
-	GLfloat getUpZ() { return up_z; }
-
-	void setPosX(GLfloat x) { pos_x = x; }
-	void setPosY(GLfloat y) { pos_y = y; }
-	void setPosZ(GLfloat z) { pos_z = z; }
-	void setCenterX(GLfloat x) { center_x = x; }
-	void setCenterY(GLfloat y) { center_y = y; }
-	void setCenterZ(GLfloat z) { center_z = z; }
-	void setUpX(GLfloat x) { up_x = x; }
-	void setUpY(GLfloat y) { up_y = y; }
-	void setUpZ(GLfloat z) { up_z = z; }
-
-private:
-	GLfloat pos_x;
-	GLfloat pos_y;
-	GLfloat pos_z;
-	GLfloat center_x;
-	GLfloat center_y;
-	GLfloat center_z;
-	GLfloat up_x;
-	GLfloat up_y;
-	GLfloat up_z;
-};
-
-Camera::Camera()
-{
-	pos_x = 0.0f;
-	pos_y = 0.0f;
-	pos_z = -5000000.0f;
-	center_x = 0.0f;
-	center_y = 0.0f;
-	center_z = 0.0f;
-	up_x = 0.0f;
-	up_y = 1.0f;
-	up_z = 0.0f;
+	initCamera();
+	windowWidth  = theWindowWidth;
+	windowHeight = theWindowHeight;
+	windowMidX = windowWidth  / 2.0f;
+	windowMidY = windowHeight / 2.0f;
+	glfwSetMousePos(windowMidX, windowMidY);
 }
-
+ 
 Camera::~Camera()
 {
-
 }
-
-void Camera::lookAt(GLfloat x, GLfloat y, GLfloat z)
+ 
+void Camera::initCamera()
 {
-	this->setPosX(x);
-	this->setPosY(y);
-	this->setPosZ(z);
+	position.zero();
+	position.setZ(-3000000.0f);
+	rotation.zero();
+	speed.zero();
+	movementSpeedFactor = 100.0;
+	pitchSensitivity = 0.002;
+	yawSensitivity   = 0.002;
+	forward     = false;
+	backward    = false;
+	left  = false;
+	right = false;
 }
-
-void Camera::reset()
+ 
+const double Camera::toRads(const double &theAngleInDegrees) const
 {
-	pos_x = 0.0f;
-	pos_y = 0.0f;
-	pos_z = -5000000.0f;
-	center_x = 0.0f;
-	center_y = 0.0f;
-	center_z = 0.0f;
-	up_x = 0.0f;
-	up_y = 1.0f;
-	up_z = 0.0f;
+	return theAngleInDegrees * TO_RADS;
 }
-
-
-
-
-
-
-
-
-
-
-
+ 
+void Camera::handleMouseMove(int mouseX, int mouseY)
+{
+	double horizMovement = (mouseX - windowMidX+1) * yawSensitivity;
+	double vertMovement  = (mouseY - windowMidY) * pitchSensitivity;
+	rotation.addX(vertMovement);
+	rotation.addY(horizMovement);
+ 
+	if (rotation.getX() < -85)
+	{
+		rotation.setX(-85);
+	}
+ 
+	if (rotation.getX() > 85)
+	{
+		rotation.setX(85);
+	}
+	if (rotation.getY() < 0)
+	{
+		rotation.addY(360);
+	}
+	if (rotation.getY() > 360)
+	{
+		rotation.addY(-360);
+	}
+	glfwSetMousePos(windowMidX, windowMidY);
+}
+ 
+void Camera::move(double deltaTime)
+{
+	Vec3<double> movement;
+	double sinXRot = sin( toRads( rotation.getX() ) );
+	double cosXRot = cos( toRads( rotation.getX() ) );
+	double sinYRot = sin( toRads( rotation.getY() ) );
+	double cosYRot = cos( toRads( rotation.getY() ) );
+	double pitchLimitFactor = cosXRot;
+ 
+	if (forward)
+	{
+		movement.addX(sinYRot * pitchLimitFactor);
+		movement.addY(-sinXRot);
+		movement.addZ(-cosYRot * pitchLimitFactor);
+	}
+ 
+	if (backward)
+	{
+		movement.addX(-sinYRot * pitchLimitFactor);
+		movement.addY(sinXRot);
+		movement.addZ(cosYRot * pitchLimitFactor);
+	}
+ 
+	if (left)
+	{
+		movement.addX(-cosYRot);
+		movement.addZ(-sinYRot);
+	}
+ 
+	if (right)
+	{
+		movement.addX(cosYRot);
+		movement.addZ(sinYRot);
+	}
+ 
+	movement.normalize();
+	double framerateIndependentFactor = movementSpeedFactor * deltaTime;
+	movement *= framerateIndependentFactor;
+	position += movement;
+}

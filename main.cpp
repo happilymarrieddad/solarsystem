@@ -20,27 +20,26 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <glm/glm.hpp>
+#include <GL/glfw.h>
 
 // Namespace
 using namespace std;
 #include "Image.cpp"
 
 // Global Variables
-const GLint WINDOW_WIDTH = 1024;
-const GLint WINDOW_HEIGHT = 768;
+const GLint WINDOW_WIDTH = 1920;
+const GLint WINDOW_HEIGHT = 1080;
 const GLint WINDOW_Z_NEAR = 1;
 const GLdouble WINDOW_Z_FAR = 1199254740992;
 const GLint WINDOW_FOV = 70;
 const GLdouble PI = 3.14159265359f;
 const GLfloat EARTH_ORBITAL_PERIOD = 365.26f;
 
-GLfloat CAMERA_X_ROTATION_ANGLE = 0.0f;
-GLfloat CAMERA_Y_ROTATION_ANGLE = 0.0f;
-GLfloat CAMERA_Z_ROTATION_ANGLE = 0.0f;
 GLfloat SIMULATION_SPEED = 0.000005f;
 GLfloat QUALITY = 64.0f;
 GLfloat SIZE = 1.0f;
-GLfloat CURRENT_TIME = 0.0f;
+GLdouble DELTA_TIME = 0.0f;
+GLdouble OLD_TIMES_SINCE_START = 0.0f;
 bool ACTUAL_DISTANCE = false;
 bool* keyStates = new bool[256]();
 bool* keySpecialStates = new bool[256]();
@@ -48,8 +47,9 @@ bool* mouseStates = new bool[256]();
 
 #include "Obj.cpp"
 #include "objects.h"
+#include "Vec3.h"
 #include "Camera.cpp"
-Camera camera;
+Camera *camera;
 #include "keyboard.h"
 
 // Global Functions
@@ -60,6 +60,7 @@ GLfloat randRotation() { return (GLdouble) (((int) (rand() * 684)) % 360); }
 void lookAt();
 void initObjects();
 void drawObjects();
+void drawCameraLocation();
 
 /***************************************************************************
 * main()
@@ -86,6 +87,8 @@ int main(int argc, char** argv)
 ********************************************************************************/
 void initialize()
 {
+    glfwDisable(GLFW_MOUSE_CURSOR);
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glShadeModel(GL_SMOOTH);
@@ -97,6 +100,7 @@ void initialize()
 	glEnable(GL_NORMALIZE);
 
 	initObjects();
+	camera = new Camera(WINDOW_WIDTH,WINDOW_HEIGHT);
 }
 
 /********************************************************************************
@@ -104,10 +108,15 @@ void initialize()
 ********************************************************************************/
 void display()
 {
-    CURRENT_TIME += 0.01f;
+    GLint TIME_SINCE_START = glutGet(GLUT_ELAPSED_TIME);
+    DELTA_TIME = TIME_SINCE_START - OLD_TIMES_SINCE_START;
+    OLD_TIMES_SINCE_START = TIME_SINCE_START;
+    camera->move(DELTA_TIME);
+
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
 	glutMouseFunc(mouse);
+	glutPassiveMotionFunc(mousePassive);
 	keyOperations();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -143,19 +152,42 @@ void reshape(int width, int height)
 *******************************************************************************/
 void lookAt()
 {
-	gluLookAt (
-		camera.getPosX() * SIZE, camera.getPosY() * SIZE, camera.getPosZ() * SIZE,
-		camera.getCenterX(),camera.getCenterY(),camera.getCenterZ(),
-		camera.getUpX(),camera.getUpY(),camera.getUpZ()
-	);
 }
 
+/*******************************************************************************
+* FUNCTION: Draw Camera Location
+*******************************************************************************/
+void drawCameraLocation()
+{
+    glRotatef(camera->getXRot(), 1.0f, 0.0f, 0.0f);
+    glRotatef(camera->getYRot(), 0.0f, 1.0f, 0.0f);
+    glTranslatef(-camera->getXPos(), -camera->getYPos(), -camera->getZPos());
+}
+
+/*******************************************************************************
+* FUNCTION: Update FPS Counter
+*******************************************************************************
+void update_fps_counter() {
+    GLint frame_count;
+    LAST_TIME = glutGet() - START_TIME;
 
 
+  static double previous_seconds = glfwGetTime ();
+  static int frame_count;
+  double current_seconds = glfwGetTime ();
+  CURRENT_TIME = current_seconds - previous_seconds;
+  if (CURRENT_TIME > 0.25) {
+    previous_seconds = current_seconds;
+    double fps = (double)frame_count / ELAPSED_TIME;
+    char tmp[128];
+    sprintf (tmp, "opengl @ fps: %.2f", fps);
 
-
-
-
+    const char* tmp2 = tmp;
+    glfwSetWindowTitle (tmp2);
+    frame_count = 0;
+  }
+  frame_count++;
+}*/
 
 
 
@@ -573,6 +605,9 @@ void drawObjects()
         pluto.setDistance(6000000.0f * SIZE);
         charon.setDistance(3000.0f * SIZE);
     }
+
+    drawCameraLocation();
+
 
     glPushMatrix();
 	glRotatef(sun.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
