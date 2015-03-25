@@ -15,6 +15,7 @@
 #include <fstream>
 #include <vector>
 #include <cstdint>
+#include <cstdlib>
 
 // OpenGL includes
 #include <GL/glu.h>
@@ -27,7 +28,7 @@ using namespace std;
 #include "Image.cpp"
 
 // Global Variables
-const GLint WINDOW_WIDTH = 1920;
+const GLint WINDOW_WIDTH = 1620;
 const GLint WINDOW_HEIGHT = 1080;
 const GLint WINDOW_Z_NEAR = 1;
 const GLdouble WINDOW_Z_FAR = 1199254740992;
@@ -35,11 +36,13 @@ const GLint WINDOW_FOV = 70;
 const GLdouble PI = 3.14159265359f;
 const GLfloat EARTH_ORBITAL_PERIOD = 365.26f;
 
-GLfloat SIMULATION_SPEED = 0.000005f;
+GLfloat SIMULATION_SPEED = 0.0005f;
 GLfloat QUALITY = 64.0f;
 GLfloat SIZE = 1.0f;
 GLdouble DELTA_TIME = 0.0f;
 GLdouble OLD_TIMES_SINCE_START = 0.0f;
+GLdouble frames = 0;
+const char *TITLE = "Nick's 3D Solar System Modeler";
 bool SPRINT = false;
 bool ACTUAL_DISTANCE = false;
 bool* keyStates = new bool[256]();
@@ -73,7 +76,7 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH); // Requesting Buffers
 	glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 	glutInitWindowPosition(100,100);
-	glutCreateWindow("Nick's 3D Solar System Modeler");
+	glutCreateWindow(TITLE);
 	initialize();
 	glutDisplayFunc(display);              // Tell glut to use display function
 	glutIdleFunc(display);                 // Use display as idle
@@ -100,6 +103,7 @@ void initialize()
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_NORMALIZE);
 
+
 	initObjects();
 	camera = new Camera(WINDOW_WIDTH,WINDOW_HEIGHT);
 }
@@ -114,6 +118,13 @@ void display()
     OLD_TIMES_SINCE_START = TIME_SINCE_START;
     if (SPRINT) camera->move(DELTA_TIME * 5);
     else camera->move(DELTA_TIME);
+
+
+    float num = 24.34f;
+    char array[10];
+    sprintf(array, "%f", num);
+
+    glutSetIconTitle(array);
 
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
@@ -165,36 +176,6 @@ void drawCameraLocation()
     glRotatef(camera->getYRot(), 0.0f, 1.0f, 0.0f);
     glTranslatef(-camera->getXPos(), -camera->getYPos(), -camera->getZPos());
 }
-
-/*******************************************************************************
-* FUNCTION: Update FPS Counter
-*******************************************************************************
-void update_fps_counter() {
-    GLint frame_count;
-    LAST_TIME = glutGet() - START_TIME;
-
-
-  static double previous_seconds = glfwGetTime ();
-  static int frame_count;
-  double current_seconds = glfwGetTime ();
-  CURRENT_TIME = current_seconds - previous_seconds;
-  if (CURRENT_TIME > 0.25) {
-    previous_seconds = current_seconds;
-    double fps = (double)frame_count / ELAPSED_TIME;
-    char tmp[128];
-    sprintf (tmp, "opengl @ fps: %.2f", fps);
-
-    const char* tmp2 = tmp;
-    glfwSetWindowTitle (tmp2);
-    frame_count = 0;
-  }
-  frame_count++;
-}*/
-
-
-
-
-
 
 
 void initObjects()
@@ -615,447 +596,51 @@ void drawObjects()
 	glRotatef(sun.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
 	glBindTexture(GL_TEXTURE_2D, sun.getTexture()); 
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    float white[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, white );
 	gluSphere(sun.getSphere(), sun.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
 
 
-
-
-	// Planets
-	glPushMatrix();
-	glRotatef(mercury.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(mercury.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, mercury.getTexture());
-	mercury.setYRotation(mercury.getYRotation() - mercury.getYRotationSpeed());
-	if (mercury.getYRotation() > 360.0f) mercury.setYRotation(mercury.getYRotation() - 360.0f);
-	glRotatef(mercury.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(mercury.getSphere(), mercury.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-
-
-
-
-	glPushMatrix();
-	glRotatef(venus.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(venus.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, venus.getTexture());
-	venus.setYRotation(venus.getYRotation() - venus.getYRotationSpeed());
-	if (venus.getYRotation() > 360.0f) venus.setYRotation(venus.getYRotation() - 360.0f);
-	glRotatef(venus.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(venus.getSphere(), venus.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-
-
-
-
-	glPushMatrix();
-	glRotatef(earth.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(earth.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, earth.getTexture());
-	earth.setYRotation(earth.getYRotation() - earth.getYRotationSpeed());
-	if (earth.getYRotation() > 360.0f) earth.setYRotation(earth.getYRotation() - 360.0f);
-	glRotatef(earth.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(earth.getSphere(), earth.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(earth.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(earth.getDistance(), 0.0f, 0.0f);
-	glRotatef(luna.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(luna.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, luna.getTexture());
-	luna.setYRotation(luna.getYRotation() - luna.getYRotationSpeed());
-	if (luna.getYRotation() > 360.0f) luna.setYRotation(luna.getYRotation() - 360.0f);
-	glRotatef(luna.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(luna.getSphere(), luna.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-
-
-
-
-	glPushMatrix();
-	glRotatef(mars.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(mars.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, mars.getTexture());
-	mars.setYRotation(mars.getYRotation() - mars.getYRotationSpeed());
-	if (mars.getYRotation() > 360.0f) mars.setYRotation(mars.getYRotation() - 360.0f);
-	glRotatef(mars.getYRotation() * (SIMULATION_SPEED * 20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(mars.getSphere(), mars.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-
-
-
-
-	glPushMatrix();
-	glRotatef(jupiter.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(jupiter.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, jupiter.getTexture());
-	jupiter.setYRotation(jupiter.getYRotation() - jupiter.getYRotationSpeed());
-	if (jupiter.getYRotation() > 360.0f) jupiter.setYRotation(jupiter.getYRotation() - 360.0f);
-	glRotatef(jupiter.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(jupiter.getSphere(), jupiter.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(jupiter.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(jupiter.getDistance(), 0.0f, 0.0f);
-	glRotatef(io.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(io.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, io.getTexture());
-	io.setYRotation(io.getYRotation() - io.getYRotationSpeed());
-	if (io.getYRotation() > 360.0f) io.setYRotation(io.getYRotation() - 360.0f);
-	glRotatef(io.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(io.getSphere(), io.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(jupiter.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(jupiter.getDistance(), 0.0f, 0.0f);
-	glRotatef(europa.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(europa.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, europa.getTexture());
-	europa.setYRotation(europa.getYRotation() - europa.getYRotationSpeed());
-	if (europa.getYRotation() > 360.0f) europa.setYRotation(europa.getYRotation() - 360.0f);
-	glRotatef(europa.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(europa.getSphere(), europa.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(jupiter.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(jupiter.getDistance(), 0.0f, 0.0f);
-	glRotatef(ganymede.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(ganymede.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, ganymede.getTexture());
-	ganymede.setYRotation(ganymede.getYRotation() - ganymede.getYRotationSpeed());
-	if (ganymede.getYRotation() > 360.0f) ganymede.setYRotation(ganymede.getYRotation() - 360.0f);
-	glRotatef(ganymede.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(ganymede.getSphere(), ganymede.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(jupiter.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(jupiter.getDistance(), 0.0f, 0.0f);
-	glRotatef(callisto.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(callisto.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, callisto.getTexture());
-	callisto.setYRotation(callisto.getYRotation() - callisto.getYRotationSpeed());
-	if (callisto.getYRotation() > 360.0f) callisto.setYRotation(callisto.getYRotation() - 360.0f);
-	glRotatef(callisto.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(callisto.getSphere(), callisto.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-
-
-
-
-	glPushMatrix();
-	glRotatef(saturn.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(saturn.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, saturn.getTexture());
-	saturn.setYRotation(saturn.getYRotation() - saturn.getYRotationSpeed());
-	if (saturn.getYRotation() > 360.0f) saturn.setYRotation(saturn.getYRotation() - 360.0f);
-	glRotatef(saturn.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(saturn.getSphere(), saturn.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(saturn.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(saturn.getDistance(), 0.0f, 0.0f);
-	glRotatef(mimas.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(mimas.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, mimas.getTexture());
-	mimas.setYRotation(mimas.getYRotation() - mimas.getYRotationSpeed());
-	if (mimas.getYRotation() > 360.0f) mimas.setYRotation(mimas.getYRotation() - 360.0f);
-	glRotatef(mimas.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(mimas.getSphere(), mimas.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(saturn.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(saturn.getDistance(), 0.0f, 0.0f);
-	glRotatef(enceladus.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(enceladus.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, enceladus.getTexture());
-	enceladus.setYRotation(enceladus.getYRotation() - enceladus.getYRotationSpeed());
-	if (enceladus.getYRotation() > 360.0f) enceladus.setYRotation(enceladus.getYRotation() - 360.0f);
-	glRotatef(enceladus.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(enceladus.getSphere(), enceladus.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(saturn.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(saturn.getDistance(), 0.0f, 0.0f);
-	glRotatef(tethys.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(tethys.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, tethys.getTexture());
-	tethys.setYRotation(tethys.getYRotation() - tethys.getYRotationSpeed());
-	if (tethys.getYRotation() > 360.0f) tethys.setYRotation(tethys.getYRotation() - 360.0f);
-	glRotatef(tethys.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(tethys.getSphere(), tethys.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(saturn.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(saturn.getDistance(), 0.0f, 0.0f);
-	glRotatef(dione.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(dione.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, dione.getTexture());
-	dione.setYRotation(dione.getYRotation() - dione.getYRotationSpeed());
-	if (dione.getYRotation() > 360.0f) dione.setYRotation(dione.getYRotation() - 360.0f);
-	glRotatef(dione.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(dione.getSphere(), dione.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(saturn.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(saturn.getDistance(), 0.0f, 0.0f);
-	glRotatef(rhea.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(rhea.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, rhea.getTexture());
-	rhea.setYRotation(rhea.getYRotation() - rhea.getYRotationSpeed());
-	if (rhea.getYRotation() > 360.0f) rhea.setYRotation(rhea.getYRotation() - 360.0f);
-	glRotatef(rhea.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(rhea.getSphere(), rhea.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(saturn.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(saturn.getDistance(), 0.0f, 0.0f);
-	glRotatef(titan.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(titan.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, titan.getTexture());
-	titan.setYRotation(titan.getYRotation() - titan.getYRotationSpeed());
-	if (titan.getYRotation() > 360.0f) titan.setYRotation(titan.getYRotation() - 360.0f);
-	glRotatef(titan.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(titan.getSphere(), titan.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(saturn.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(saturn.getDistance(), 0.0f, 0.0f);
-	glRotatef(hyperion.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(hyperion.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, hyperion.getTexture());
-	hyperion.setYRotation(hyperion.getYRotation() - hyperion.getYRotationSpeed());
-	if (hyperion.getYRotation() > 360.0f) hyperion.setYRotation(hyperion.getYRotation() - 360.0f);
-	glRotatef(hyperion.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(hyperion.getSphere(), hyperion.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(saturn.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(saturn.getDistance(), 0.0f, 0.0f);
-	glRotatef(iapetus.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(iapetus.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, iapetus.getTexture());
-	iapetus.setYRotation(iapetus.getYRotation() - iapetus.getYRotationSpeed());
-	if (iapetus.getYRotation() > 360.0f) iapetus.setYRotation(iapetus.getYRotation() - 360.0f);
-	glRotatef(iapetus.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(iapetus.getSphere(), iapetus.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(saturn.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(saturn.getDistance(), 0.0f, 0.0f);
-	glRotatef(phoebe.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(phoebe.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, phoebe.getTexture());
-	phoebe.setYRotation(phoebe.getYRotation() - phoebe.getYRotationSpeed());
-	if (phoebe.getYRotation() > 360.0f) phoebe.setYRotation(phoebe.getYRotation() - 360.0f);
-	glRotatef(phoebe.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(phoebe.getSphere(), phoebe.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-
-
-
-
-
-	glPushMatrix();
-	glRotatef(uranus.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(uranus.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, uranus.getTexture());
-	uranus.setYRotation(uranus.getYRotation() - uranus.getYRotationSpeed());
-	if (uranus.getYRotation() > 360.0f) uranus.setYRotation(uranus.getYRotation() - 360.0f);
-	glRotatef(uranus.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 0.0f, 1.0f);
-	gluSphere(uranus.getSphere(), uranus.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(uranus.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(uranus.getDistance(), 0.0f, 0.0f);
-	glRotatef(miranda.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(miranda.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, miranda.getTexture());
-	miranda.setYRotation(miranda.getYRotation() - miranda.getYRotationSpeed());
-	if (miranda.getYRotation() > 360.0f) miranda.setYRotation(miranda.getYRotation() - 360.0f);
-	glRotatef(miranda.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(miranda.getSphere(), miranda.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(uranus.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(uranus.getDistance(), 0.0f, 0.0f);
-	glRotatef(ariel.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(ariel.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, ariel.getTexture());
-	ariel.setYRotation(ariel.getYRotation() - ariel.getYRotationSpeed());
-	if (ariel.getYRotation() > 360.0f) ariel.setYRotation(ariel.getYRotation() - 360.0f);
-	glRotatef(ariel.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(ariel.getSphere(), ariel.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(uranus.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(uranus.getDistance(), 0.0f, 0.0f);
-	glRotatef(umbriel.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(umbriel.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, umbriel.getTexture());
-	umbriel.setYRotation(umbriel.getYRotation() - umbriel.getYRotationSpeed());
-	if (umbriel.getYRotation() > 360.0f) umbriel.setYRotation(umbriel.getYRotation() - 360.0f);
-	glRotatef(umbriel.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(umbriel.getSphere(), umbriel.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(uranus.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(uranus.getDistance(), 0.0f, 0.0f);
-	glRotatef(titania.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(titania.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, titania.getTexture());
-	titania.setYRotation(titania.getYRotation() - titania.getYRotationSpeed());
-	if (titania.getYRotation() > 360.0f) titania.setYRotation(titania.getYRotation() - 360.0f);
-	glRotatef(titania.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(titania.getSphere(), titania.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(uranus.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(uranus.getDistance(), 0.0f, 0.0f);
-	glRotatef(oberon.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(oberon.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, oberon.getTexture());
-	oberon.setYRotation(oberon.getYRotation() - oberon.getYRotationSpeed());
-	if (oberon.getYRotation() > 360.0f) oberon.setYRotation(oberon.getYRotation() - 360.0f);
-	glRotatef(oberon.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(oberon.getSphere(), oberon.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-
-
-
-
-
-
-
-	glPushMatrix();
-	glRotatef(neptune.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(neptune.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, neptune.getTexture());
-	neptune.setYRotation(neptune.getYRotation() - neptune.getYRotationSpeed());
-	if (neptune.getYRotation() > 360.0f) neptune.setYRotation(neptune.getYRotation() - 360.0f);
-	glRotatef(neptune.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(neptune.getSphere(), neptune.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(neptune.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(neptune.getDistance(), 0.0f, 0.0f);
-	glRotatef(proteus.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(proteus.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, proteus.getTexture());
-	proteus.setYRotation(proteus.getYRotation() - proteus.getYRotationSpeed());
-	if (proteus.getYRotation() > 360.0f) proteus.setYRotation(proteus.getYRotation() - 360.0f);
-	glRotatef(proteus.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(proteus.getSphere(), proteus.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(neptune.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(neptune.getDistance(), 0.0f, 0.0f);
-	glRotatef(triton.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(triton.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, triton.getTexture());
-	triton.setYRotation(triton.getYRotation() - triton.getYRotationSpeed());
-	if (triton.getYRotation() > 360.0f) triton.setYRotation(triton.getYRotation() - 360.0f);
-	glRotatef(triton.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(triton.getSphere(), triton.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(neptune.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(neptune.getDistance(), 0.0f, 0.0f);
-	glRotatef(nereid.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(nereid.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, nereid.getTexture());
-	nereid.setYRotation(nereid.getYRotation() - nereid.getYRotationSpeed());
-	if (nereid.getYRotation() > 360.0f) nereid.setYRotation(nereid.getYRotation() - 360.0f);
-	glRotatef(nereid.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(nereid.getSphere(), nereid.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-
-
-
-
-
-
-
-	glPushMatrix();
-	glRotatef(pluto.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(pluto.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, pluto.getTexture());
-	pluto.setYRotation(pluto.getYRotation() - pluto.getYRotationSpeed());
-	if (pluto.getYRotation() > 360.0f) pluto.setYRotation(pluto.getYRotation() - 360.0f);
-	glRotatef(pluto.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(pluto.getSphere(), pluto.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
-	glPushMatrix();
-	glRotatef(pluto.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(pluto.getDistance(), 0.0f, 0.0f);
-	glRotatef(charon.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glTranslatef(charon.getDistance(), 0.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, charon.getTexture());
-	charon.setYRotation(charon.getYRotation() - charon.getYRotationSpeed());
-	if (charon.getYRotation() > 360.0f) charon.setYRotation(charon.getYRotation() - 360.0f);
-	glRotatef(charon.getYRotation() * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(charon.getSphere(), charon.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
+    mercury.planetOrbit();
+
+    venus.planetOrbit();
+
+    earth.planetOrbit();
+    luna.moonOrbit(earth);
+
+    mars.planetOrbit();
+
+	jupiter.planetOrbit();
+    io.moonOrbit(jupiter);
+    europa.moonOrbit(jupiter);
+    ganymede.moonOrbit(jupiter);
+    callisto.moonOrbit(jupiter);
+
+    saturn.planetOrbit();
+    mimas.moonOrbit(saturn);
+    enceladus.moonOrbit(saturn);
+    tethys.moonOrbit(saturn);
+    dione.moonOrbit(saturn);
+    rhea.moonOrbit(saturn);
+    titan.moonOrbit(saturn);
+    hyperion.moonOrbit(saturn);
+    iapetus.moonOrbit(saturn);
+    phoebe.moonOrbit(saturn);
+
+    uranus.planetOrbit2();
+    miranda.moonOrbit(uranus);
+    ariel.moonOrbit(uranus);
+    umbriel.moonOrbit(uranus);
+    titania.moonOrbit(uranus);
+    oberon.moonOrbit(uranus);
+
+    neptune.planetOrbit();
+    proteus.moonOrbit(neptune);
+    triton.moonOrbit(neptune);
+    nereid.moonOrbit(neptune);
+
+    pluto.planetOrbit();
+    charon.moonOrbit(pluto);
 }
 

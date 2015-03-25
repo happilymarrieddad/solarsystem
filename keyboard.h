@@ -93,11 +93,11 @@ void keyOperations()
 	}
 	if (keyStates['-'])
 	{
-		if (SIMULATION_SPEED > 0.0f) SIMULATION_SPEED -= 0.000005f;
+		if (SIMULATION_SPEED > 0.0f) SIMULATION_SPEED -= 0.0005f;
 	}
 	if (keyStates['='])
 	{
-		SIMULATION_SPEED += 0.000005f;
+		SIMULATION_SPEED += 0.0005f;
 	}
     if (keyStates['y'])
     {
@@ -113,8 +113,12 @@ void keyOperations()
     } else SPRINT = false;
     if (keyStates['r'])
     {
-        SIMULATION_SPEED = 0.000005f;
+        SIMULATION_SPEED = 0.0005f;
     }
+    if (keyStates['p'])
+    {
+        SIMULATION_SPEED = 0.0f;
+    } else SIMULATION_SPEED = 0.0005f;
 
 
 
