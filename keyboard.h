@@ -93,11 +93,11 @@ void keyOperations()
 	}
 	if (keyStates['-'])
 	{
-		if (SIMULATION_SPEED > 0.0f) SIMULATION_SPEED -= 0.0001f;
+		if (SIMULATION_SPEED > 0.0f) SIMULATION_SPEED -= 0.000005f;
 	}
 	if (keyStates['='])
 	{
-		SIMULATION_SPEED += 0.0001f;
+		SIMULATION_SPEED += 0.000005f;
 	}
     if (keyStates['y'])
     {
@@ -107,6 +107,15 @@ void keyOperations()
     {
         ACTUAL_DISTANCE = false;
     }
+    if (keyStates['e'])
+    {
+        SPRINT = true;
+    } else SPRINT = false;
+    if (keyStates['r'])
+    {
+        SIMULATION_SPEED = 0.000005f;
+    }
+
 
 
 	// Look at Sol

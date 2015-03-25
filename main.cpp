@@ -40,6 +40,7 @@ GLfloat QUALITY = 64.0f;
 GLfloat SIZE = 1.0f;
 GLdouble DELTA_TIME = 0.0f;
 GLdouble OLD_TIMES_SINCE_START = 0.0f;
+bool SPRINT = false;
 bool ACTUAL_DISTANCE = false;
 bool* keyStates = new bool[256]();
 bool* keySpecialStates = new bool[256]();
@@ -111,7 +112,8 @@ void display()
     GLint TIME_SINCE_START = glutGet(GLUT_ELAPSED_TIME);
     DELTA_TIME = TIME_SINCE_START - OLD_TIMES_SINCE_START;
     OLD_TIMES_SINCE_START = TIME_SINCE_START;
-    camera->move(DELTA_TIME);
+    if (SPRINT) camera->move(DELTA_TIME * 5);
+    else camera->move(DELTA_TIME);
 
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);

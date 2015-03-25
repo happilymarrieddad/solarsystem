@@ -1,15 +1,13 @@
 #include "Camera.h"
 
-const double Camera::TO_RADS = 3.141592654 / 180.0;
+const double Camera::TO_RADIANS = 3.141592654 / 180.0;
  
-Camera::Camera(float theWindowWidth, float theWindowHeight)
+Camera::Camera(float width, float height)
 {
 	initCamera();
-	windowWidth  = theWindowWidth;
-	windowHeight = theWindowHeight;
-	windowMidX = windowWidth  / 2.0f;
-	windowMidY = windowHeight / 2.0f;
-	glfwSetMousePos(windowMidX, windowMidY);
+	_width  = width;
+	_height = height;
+	glfwSetMousePos(_width/2.0f, _height/2.0f);
 }
  
 Camera::~Camera()
@@ -22,26 +20,26 @@ void Camera::initCamera()
 	position.setZ(-3000000.0f);
 	rotation.zero();
 	speed.zero();
-	movementSpeedFactor = 100.0;
-	pitchSensitivity = 0.002;
-	yawSensitivity   = 0.002;
-	forward     = false;
-	backward    = false;
+	_speed = 100.0;
+	_pitch = 0.002;
+	_yaw = 0.002;
+	forward = false;
+	backward = false;
 	left  = false;
 	right = false;
 }
  
-const double Camera::toRads(const double &theAngleInDegrees) const
+const double Camera::toRadians(const double &theAngleInDegrees) const
 {
-	return theAngleInDegrees * TO_RADS;
+	return theAngleInDegrees * TO_RADIANS;
 }
  
-void Camera::handleMouseMove(int mouseX, int mouseY)
+void Camera::handleMouseMove(int x, int y)
 {
-	double horizMovement = (mouseX - windowMidX+1) * yawSensitivity;
-	double vertMovement  = (mouseY - windowMidY) * pitchSensitivity;
-	rotation.addX(vertMovement);
-	rotation.addY(horizMovement);
+	double h = (x - (_width/2)+1) * _yaw;
+	double v  = (y - (_height/2)) * _pitch;
+	rotation.addX(v);
+	rotation.addY(h);
  
 	if (rotation.getX() < -85)
 	{
@@ -60,16 +58,16 @@ void Camera::handleMouseMove(int mouseX, int mouseY)
 	{
 		rotation.addY(-360);
 	}
-	glfwSetMousePos(windowMidX, windowMidY);
+	glfwSetMousePos(_width/2, _height/2);
 }
  
 void Camera::move(double deltaTime)
 {
 	Vec3<double> movement;
-	double sinXRot = sin( toRads( rotation.getX() ) );
-	double cosXRot = cos( toRads( rotation.getX() ) );
-	double sinYRot = sin( toRads( rotation.getY() ) );
-	double cosYRot = cos( toRads( rotation.getY() ) );
+	double sinXRot = sin( toRadians( rotation.getX() ) );
+	double cosXRot = cos( toRadians( rotation.getX() ) );
+	double sinYRot = sin( toRadians( rotation.getY() ) );
+	double cosYRot = cos( toRadians( rotation.getY() ) );
 	double pitchLimitFactor = cosXRot;
  
 	if (forward)
@@ -99,7 +97,7 @@ void Camera::move(double deltaTime)
 	}
  
 	movement.normalize();
-	double framerateIndependentFactor = movementSpeedFactor * deltaTime;
-	movement *= framerateIndependentFactor;
+	double total = _speed * deltaTime;
+	movement *= total;
 	position += movement;
 }

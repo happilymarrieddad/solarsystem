@@ -1,17 +1,17 @@
 class Camera
 {
 public:
-    Camera(float windowWidth, float windowHeight);
+    Camera(float width, float height);
     ~Camera();
  
-    void handleMouseMove(int mouseX, int mouseY);
-    const double toRads(const double &angleInDegrees) const;
+    void handleMouseMove(int x, int y);
+    const double toRadians(const double &angleInDegrees) const;
     void move(double deltaTime);
  
-    float getPitchSensitivity()            { return pitchSensitivity;  }
-    void  setPitchSensitivity(float value) { pitchSensitivity = value; }
-    float getYawSensitivity()              { return yawSensitivity;    }
-    void  setYawSensitivity(float value)   { yawSensitivity   = value; }
+    float getPitchSensitivity()            { return _pitch;  }
+    void  setPitchSensitivity(float value) { _pitch = value; }
+    float getYawSensitivity()              { return _yaw;    }
+    void  setYawSensitivity(float value)   { _yaw = value; }
  
     Vec3<double> getPosition() const { return position;        }
     double getXPos()           const { return position.getX(); }
@@ -23,7 +23,7 @@ public:
     double getYRot()           const { return rotation.getY(); }
     double getZRot()           const { return rotation.getZ(); }
     
-    static const double TO_RADS; 
+    static const double TO_RADIANS;
     bool forward;
     bool backward;
     bool left;
@@ -32,13 +32,11 @@ protected:
     Vec3<double> position;
     Vec3<double> rotation;
     Vec3<double> speed;
-    double movementSpeedFactor;
-    double pitchSensitivity;
-    double yawSensitivity;
-    int windowWidth;
-    int windowHeight;
-    int windowMidX;
-    int windowMidY;
+    double _speed;
+    double _pitch;
+    double _yaw;
+    int _width;
+    int _height;
  
     void initCamera();
 };
