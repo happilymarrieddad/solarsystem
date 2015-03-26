@@ -42,6 +42,10 @@ GLfloat SIZE = 1.0f;
 GLdouble DELTA_TIME = 0.0f;
 GLdouble OLD_TIMES_SINCE_START = 0.0f;
 GLdouble frames = 0;
+GLint FRAME = 0;
+GLint TIME;
+GLint TIMEBASE = 0;
+GLdouble FPS;
 const char *TITLE = "Nick's 3D Solar System Modeler";
 bool SPRINT = false;
 bool ACTUAL_DISTANCE = false;
@@ -56,12 +60,6 @@ bool* mouseStates = new bool[256]();
 Camera *camera;
 #include "keyboard.h"
 
-
-
-/* Light Variables */
-GLfloat light[] = {1.0f,1.0f,1.0f,10.0f};
-
-GLfloat light0Pos[] = {(GLfloat) (sun.getRadius()+10.0f),0.0f,0.0f,1.0f};
 
 // Global Functions
 void initialize();
@@ -106,9 +104,12 @@ void initialize()
 	glEnable(GL_CULL_FACE); // dont render backside
 	glEnable(GL_SCISSOR_TEST); // only render what has changed
 	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_NORMALIZE);
+    glEnable(GL_NORMALIZE);
 
-    
+    glEnable(GL_LIGHTING);
+    glDisable(GL_LIGHTING);
+    glEnable(GL_COLOR_MATERIAL);
+    //glColorMaterial(GL_FRONT_AND_BACK,GL_DIFFUSE);
 
 
 	initObjects();
@@ -123,9 +124,20 @@ void display()
     GLint TIME_SINCE_START = glutGet(GLUT_ELAPSED_TIME);
     DELTA_TIME = TIME_SINCE_START - OLD_TIMES_SINCE_START;
     OLD_TIMES_SINCE_START = TIME_SINCE_START;
-    if (SPRINT) camera->move(DELTA_TIME * 5);
+    if (SPRINT) camera->move(DELTA_TIME * 20);
     else camera->move(DELTA_TIME);
 
+    char s[128];
+    FRAME++;
+    TIME = glutGet(GLUT_ELAPSED_TIME);
+    if (TIME - TIMEBASE > 1000) {
+        FPS = (GLdouble) (FRAME * 1000.0f) / (GLdouble) (TIME - TIMEBASE);
+        sprintf(s,"FPS:%4.2f",FPS);
+        TIMEBASE = TIME;
+        FRAME = 0;
+    }
+
+    glutSetWindowTitle(s);
 
     //cout << SIMULATION_SPEED << endl;
 
@@ -138,10 +150,14 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+    GLfloat globalAmbient[] = { 0.2, 0.2, 0.2, 1.0 };
+    glLightModelfv( GL_LIGHT_MODEL_AMBIENT, globalAmbient );
+
 
 	lookAt();
 
 	drawObjects();
+
 
 	glutSwapBuffers();
 }
@@ -369,7 +385,7 @@ void initObjects()
     
     venus.setTexture("images/venus.bmp");
     
-    earth.setTexture("images/earth.bmp");
+    earth.setTexture("images/Earth.bmp");
     luna.setTexture("images/luna.bmp");
     
     mars.setTexture("images/mars.bmp");
@@ -593,7 +609,6 @@ void drawObjects()
     }
 
     drawCameraLocation();
-
 
     glPushMatrix();
 	glRotatef(sun.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);

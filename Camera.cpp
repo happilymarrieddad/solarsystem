@@ -19,9 +19,9 @@ void Camera::initCamera()
 	position.setZ(3000000.0f);
 	rotation.zero();
 	speed.zero();
-	_speed = 100.0;
-	_pitch = 0.002;
-	_yaw = 0.002;
+	_speed = 30.0;
+	_pitch = 0.0025;
+	_yaw = 0.0025;
 	forward = false;
 	backward = false;
 	left  = false;

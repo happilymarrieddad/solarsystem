@@ -70,10 +70,12 @@ void Obj::setTexture(const char* filename)
     delete img;
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
     sphere = gluNewQuadric();
 	gluQuadricDrawStyle(sphere, GLU_FILL);
 	gluQuadricTexture(sphere, GL_TRUE);
-	gluQuadricNormals(sphere, GLU_FLAT);
+	gluQuadricNormals(sphere, GLU_SMOOTH);
 	gluQuadricOrientation(sphere, GLU_INSIDE);
 }
 
@@ -95,6 +97,18 @@ void Obj::planetOrbit(GLdouble &speed)
     if (yRotation > 360.0f) yRotation -= 360.0f;
     glRotatef(yRotation * (speed * -20.0f), 0.0f, 1.0f, 0.0f);
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+
+    GLfloat ambient[] = {0.2f,0.2f,0.2f,1.0f};
+    GLfloat diffuse[] = {0.8f,0.8f,0.8f,1.0f};
+    GLfloat specular[] = {0.0f,0.0f,0.0f,1.0f};
+    GLfloat emission[] = {0.0f,0.0f,0.0f,1.0f};
+
+    glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT,ambient);
+    glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,diffuse);
+    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,specular);
+    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,emission);
+    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,0);
+
     gluSphere(sphere, radius, QUALITY, QUALITY);
     glPopMatrix();
 }
