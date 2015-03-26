@@ -7,7 +7,6 @@ Camera::Camera(float width, float height)
 	initCamera();
 	_width  = width;
 	_height = height;
-	glfwSetMousePos(_width/2.0f, _height/2.0f);
 }
  
 Camera::~Camera()
@@ -17,7 +16,7 @@ Camera::~Camera()
 void Camera::initCamera()
 {
 	position.zero();
-	position.setZ(-3000000.0f);
+	position.setZ(3000000.0f);
 	rotation.zero();
 	speed.zero();
 	_speed = 100.0;
@@ -58,7 +57,6 @@ void Camera::handleMouseMove(int x, int y)
 	{
 		rotation.addY(-360);
 	}
-	glfwSetMousePos(_width/2, _height/2);
 }
  
 void Camera::move(double deltaTime)

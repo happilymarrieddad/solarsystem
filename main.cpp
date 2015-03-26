@@ -36,7 +36,7 @@ const GLint WINDOW_FOV = 70;
 const GLdouble PI = 3.14159265359f;
 const GLfloat EARTH_ORBITAL_PERIOD = 365.26f;
 
-GLfloat SIMULATION_SPEED = 0.0005f;
+GLdouble SIMULATION_SPEED = 0.0005f;
 GLfloat QUALITY = 64.0f;
 GLfloat SIZE = 1.0f;
 GLdouble DELTA_TIME = 0.0f;
@@ -56,6 +56,13 @@ bool* mouseStates = new bool[256]();
 Camera *camera;
 #include "keyboard.h"
 
+
+
+/* Light Variables */
+GLfloat light[] = {1.0f,1.0f,1.0f,10.0f};
+
+GLfloat light0Pos[] = {(GLfloat) (sun.getRadius()+10.0f),0.0f,0.0f,1.0f};
+
 // Global Functions
 void initialize();
 void display();
@@ -73,7 +80,7 @@ void drawCameraLocation();
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);               // Initialize glut
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH); // Requesting Buffers
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL); // Requesting Buffers
 	glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 	glutInitWindowPosition(100,100);
 	glutCreateWindow(TITLE);
@@ -91,17 +98,17 @@ int main(int argc, char** argv)
 ********************************************************************************/
 void initialize()
 {
-    glfwDisable(GLFW_MOUSE_CURSOR);
+    glutSetCursor(GLUT_CURSOR_NONE);
 
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
 	glShadeModel(GL_SMOOTH);
 	glFrontFace(GL_CW);
 	glEnable(GL_CULL_FACE); // dont render backside
 	glEnable(GL_SCISSOR_TEST); // only render what has changed
 	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_NORMALIZE);
+
+    
 
 
 	initObjects();
@@ -120,11 +127,7 @@ void display()
     else camera->move(DELTA_TIME);
 
 
-    float num = 24.34f;
-    char array[10];
-    sprintf(array, "%f", num);
-
-    glutSetIconTitle(array);
+    //cout << SIMULATION_SPEED << endl;
 
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
@@ -596,51 +599,49 @@ void drawObjects()
 	glRotatef(sun.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
 	glBindTexture(GL_TEXTURE_2D, sun.getTexture()); 
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-    float white[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, white );
 	gluSphere(sun.getSphere(), sun.getRadius(), QUALITY, QUALITY);
 	glPopMatrix();
 
 
-    mercury.planetOrbit();
+    mercury.planetOrbit(SIMULATION_SPEED);
 
-    venus.planetOrbit();
+    venus.planetOrbit(SIMULATION_SPEED);
 
-    earth.planetOrbit();
-    luna.moonOrbit(earth);
+    earth.planetOrbit(SIMULATION_SPEED);
+    luna.moonOrbit(earth, SIMULATION_SPEED);
 
-    mars.planetOrbit();
+    mars.planetOrbit(SIMULATION_SPEED);
 
-	jupiter.planetOrbit();
-    io.moonOrbit(jupiter);
-    europa.moonOrbit(jupiter);
-    ganymede.moonOrbit(jupiter);
-    callisto.moonOrbit(jupiter);
+	jupiter.planetOrbit(SIMULATION_SPEED);
+    io.moonOrbit(jupiter, SIMULATION_SPEED);
+    europa.moonOrbit(jupiter, SIMULATION_SPEED);
+    ganymede.moonOrbit(jupiter, SIMULATION_SPEED);
+    callisto.moonOrbit(jupiter, SIMULATION_SPEED);
 
-    saturn.planetOrbit();
-    mimas.moonOrbit(saturn);
-    enceladus.moonOrbit(saturn);
-    tethys.moonOrbit(saturn);
-    dione.moonOrbit(saturn);
-    rhea.moonOrbit(saturn);
-    titan.moonOrbit(saturn);
-    hyperion.moonOrbit(saturn);
-    iapetus.moonOrbit(saturn);
-    phoebe.moonOrbit(saturn);
+    saturn.planetOrbit(SIMULATION_SPEED);
+    mimas.moonOrbit(saturn, SIMULATION_SPEED);
+    enceladus.moonOrbit(saturn, SIMULATION_SPEED);
+    tethys.moonOrbit(saturn, SIMULATION_SPEED);
+    dione.moonOrbit(saturn, SIMULATION_SPEED);
+    rhea.moonOrbit(saturn, SIMULATION_SPEED);
+    titan.moonOrbit(saturn, SIMULATION_SPEED);
+    hyperion.moonOrbit(saturn, SIMULATION_SPEED);
+    iapetus.moonOrbit(saturn, SIMULATION_SPEED);
+    phoebe.moonOrbit(saturn, SIMULATION_SPEED);
 
-    uranus.planetOrbit2();
-    miranda.moonOrbit(uranus);
-    ariel.moonOrbit(uranus);
-    umbriel.moonOrbit(uranus);
-    titania.moonOrbit(uranus);
-    oberon.moonOrbit(uranus);
+    uranus.planetOrbit2(SIMULATION_SPEED);
+    miranda.moonOrbit(uranus, SIMULATION_SPEED);
+    ariel.moonOrbit(uranus, SIMULATION_SPEED);
+    umbriel.moonOrbit(uranus, SIMULATION_SPEED);
+    titania.moonOrbit(uranus, SIMULATION_SPEED);
+    oberon.moonOrbit(uranus, SIMULATION_SPEED);
 
-    neptune.planetOrbit();
-    proteus.moonOrbit(neptune);
-    triton.moonOrbit(neptune);
-    nereid.moonOrbit(neptune);
+    neptune.planetOrbit(SIMULATION_SPEED);
+    proteus.moonOrbit(neptune, SIMULATION_SPEED);
+    triton.moonOrbit(neptune, SIMULATION_SPEED);
+    nereid.moonOrbit(neptune, SIMULATION_SPEED);
 
-    pluto.planetOrbit();
-    charon.moonOrbit(pluto);
+    pluto.planetOrbit(SIMULATION_SPEED);
+    charon.moonOrbit(pluto, SIMULATION_SPEED);
 }
 

@@ -4,9 +4,9 @@ public:
 	Obj();
 	~Obj() {}
 
-    void planetOrbit();
-    void planetOrbit2();
-    void moonOrbit(Obj planet);
+    void planetOrbit(GLdouble &speed);
+    void planetOrbit2(GLdouble &speed);
+    void moonOrbit(Obj planet, GLdouble &speed);
 
 	GLUquadricObj* getSphere() { return sphere; }
 	GLuint getTexture() { return texture; }
@@ -84,45 +84,45 @@ GLdouble Obj::getAngleOfRotation(GLfloat speed)
 	return angle_of_rotation;
 }
 
-void Obj::planetOrbit()
+void Obj::planetOrbit(GLdouble &speed)
 {
     glPushMatrix();
-    setX(distance * sin(this->getAngleOfRotation(SIMULATION_SPEED)*(PI/180)));
-    setZ(distance * cos(this->getAngleOfRotation(SIMULATION_SPEED)*(PI/180)));
+    setX(distance * sin(this->getAngleOfRotation(speed)*(PI/180)));
+    setZ(distance * cos(this->getAngleOfRotation(speed)*(PI/180)));
     glTranslatef(x,y,z);
     glBindTexture(GL_TEXTURE_2D, texture);
     yRotation -=  yRotationSpeed;
     if (yRotation > 360.0f) yRotation -= 360.0f;
-    glRotatef(yRotation * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
+    glRotatef(yRotation * (speed * -20.0f), 0.0f, 1.0f, 0.0f);
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
     gluSphere(sphere, radius, QUALITY, QUALITY);
     glPopMatrix();
 }
 
-void Obj::planetOrbit2()
+void Obj::planetOrbit2(GLdouble &speed)
 {
     glPushMatrix();
-    setX(distance * sin(this->getAngleOfRotation(SIMULATION_SPEED)*(PI/180)));
-    setZ(distance * cos(this->getAngleOfRotation(SIMULATION_SPEED)*(PI/180)));
+    setX(distance * sin(this->getAngleOfRotation(speed)*(PI/180)));
+    setZ(distance * cos(this->getAngleOfRotation(speed)*(PI/180)));
     glTranslatef(x,y,z);
     glBindTexture(GL_TEXTURE_2D, texture);
     yRotation -=  yRotationSpeed;
     if (yRotation > 360.0f) yRotation -= 360.0f;
-    glRotatef(yRotation * (SIMULATION_SPEED * -20.0f), 0.0f, 0.0f, 1.0f);
+    glRotatef(yRotation * (speed * -20.0f), 0.0f, 0.0f, 1.0f);
     gluSphere(sphere, radius, QUALITY, QUALITY);
     glPopMatrix();
 }
 
-void Obj::moonOrbit(Obj planet)
+void Obj::moonOrbit(Obj planet, GLdouble &speed)
 {
     glPushMatrix();
-    setX(distance * sin(this->getAngleOfRotation(SIMULATION_SPEED)*(PI/180)) + planet.getX());
-    setZ(distance * cos(this->getAngleOfRotation(SIMULATION_SPEED)*(PI/180)) + planet.getZ());
+    setX(distance * sin(this->getAngleOfRotation(speed)*(PI/180)) + planet.getX());
+    setZ(distance * cos(this->getAngleOfRotation(speed)*(PI/180)) + planet.getZ());
     glTranslatef(x,y,z);
     glBindTexture(GL_TEXTURE_2D, texture);
     yRotation -=  yRotationSpeed;
     if (yRotation > 360.0f) yRotation -= 360.0f;
-    glRotatef(yRotation * (SIMULATION_SPEED * -20.0f), 0.0f, 1.0f, 0.0f);
+    glRotatef(yRotation * (speed * -20.0f), 0.0f, 1.0f, 0.0f);
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
     gluSphere(sphere, radius, QUALITY, QUALITY);
     glPopMatrix();
