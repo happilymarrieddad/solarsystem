@@ -75,6 +75,7 @@ GLfloat randRotation() { return (GLdouble) (((int) (rand() * 684)) % 360); }
 ****************************************************************************/
 int main(int argc, char** argv)
 {
+
 	glutInit(&argc, argv);               // Initialize glut
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL); // Requesting Buffers
 	glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);

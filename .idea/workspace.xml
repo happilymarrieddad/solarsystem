@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b1c72fe-17b6-4fc4-a23c-1755bead22de" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model" afterPath="$PROJECT_DIR$/model" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Obj.cpp" afterPath="$PROJECT_DIR$/Obj.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/keyboard.h" afterPath="$PROJECT_DIR$/keyboard.h" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="solarsystem.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,7 +29,7 @@
       <file leaf-file-name="main.cpp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="587" column="45" selection-start="22002" selection-end="22002" vertical-scroll-proportion="0.3531218" vertical-offset="10221" max-vertical-offset="11736">
+            <state line="587" column="45" selection-start="22002" selection-end="22002" vertical-scroll-proportion="0.0" vertical-offset="10221" max-vertical-offset="11736">
               <folding />
             </state>
           </provider>
@@ -41,7 +38,7 @@
       <file leaf-file-name="Vec3.h" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Vec3.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="21" selection-start="1080" selection-end="1080" vertical-scroll-proportion="0.0" vertical-offset="738" max-vertical-offset="2430">
+            <state line="56" column="21" selection-start="1080" selection-end="1080" vertical-scroll-proportion="0.0" vertical-offset="1008" max-vertical-offset="2430">
               <folding />
             </state>
           </provider>
@@ -50,7 +47,7 @@
       <file leaf-file-name="Camera.h" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Camera.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="17" selection-start="1129" selection-end="1129" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="846">
+            <state line="31" column="17" selection-start="1129" selection-end="1129" vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="846">
               <folding />
             </state>
           </provider>
@@ -59,7 +56,7 @@
       <file leaf-file-name="Camera.cpp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Camera.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="4" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0" vertical-offset="882" max-vertical-offset="1944">
+            <state line="18" column="4" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="1944">
               <folding />
             </state>
           </provider>
@@ -68,7 +65,7 @@
       <file leaf-file-name="keyboard.h" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/keyboard.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="96" column="5" selection-start="2320" selection-end="2320" vertical-scroll-proportion="0.0" vertical-offset="1296" max-vertical-offset="3240">
+            <state line="96" column="5" selection-start="2320" selection-end="2320" vertical-scroll-proportion="0.0" vertical-offset="1728" max-vertical-offset="3240">
               <folding />
             </state>
           </provider>
@@ -99,9 +96,9 @@
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
     <option name="x" value="746" />
-    <option name="y" value="52" />
-    <option name="width" value="1173" />
-    <option name="height" value="1093" />
+    <option name="y" value="24" />
+    <option name="width" value="1163" />
+    <option name="height" value="1149" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -207,8 +204,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="746" y="52" width="1173" height="1093" extended-state="4" />
-    <editor active="true" />
+    <frame x="746" y="24" width="1163" height="1149" extended-state="4" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -223,11 +220,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -247,6 +244,41 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="587" column="45" selection-start="22002" selection-end="22002" vertical-scroll-proportion="0.0" vertical-offset="10221" max-vertical-offset="11736">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vec3.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="21" selection-start="1080" selection-end="1080" vertical-scroll-proportion="0.0" vertical-offset="1008" max-vertical-offset="2430">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Camera.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="17" selection-start="1129" selection-end="1129" vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="846">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Camera.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="4" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="1944">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keyboard.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="5" selection-start="2320" selection-end="2320" vertical-scroll-proportion="0.0" vertical-offset="1728" max-vertical-offset="3240">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="47" column="0" selection-start="1224" selection-end="1224" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="18540">
@@ -319,16 +351,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/objects.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="9" selection-start="67" selection-end="67" vertical-scroll-proportion="0.16363636" vertical-offset="0" max-vertical-offset="990">
-          <folding />
-        </state>
+        <state line="9" column="9" selection-start="67" selection-end="67" vertical-scroll-proportion="0.16363636" vertical-offset="0" max-vertical-offset="990" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Obj.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="4" selection-start="2696" selection-end="2696" vertical-scroll-proportion="0.53535354" vertical-offset="1198" max-vertical-offset="2412">
-          <folding />
-        </state>
+        <state line="96" column="4" selection-start="2696" selection-end="2696" vertical-scroll-proportion="0.53535354" vertical-offset="1198" max-vertical-offset="2412" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Camera.cpp">
@@ -354,7 +382,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="587" column="45" selection-start="22002" selection-end="22002" vertical-scroll-proportion="0.3531218" vertical-offset="10221" max-vertical-offset="11736">
+        <state line="587" column="45" selection-start="22002" selection-end="22002" vertical-scroll-proportion="0.0" vertical-offset="10221" max-vertical-offset="11736">
           <folding />
         </state>
       </provider>
