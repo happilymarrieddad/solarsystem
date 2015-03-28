@@ -58,7 +58,6 @@ void mouse(int button, int state, int x, int y)
 ******************************************************************************/
 void mousePassive(int x, int y)
 {
-	cout << "X: " << x << "   Y: " << y << endl;
     camera->handleMouseMove(x,y);
 }
 
@@ -116,7 +115,7 @@ void keyOperations()
     {
         SIMULATION_SPEED = 0.0005f;
     }
-    if (keyStates['p'])
+    if (keyStates['v'])
     {
         SIMULATION_SPEED = 0.0f;
     } else SIMULATION_SPEED = 0.0005f;

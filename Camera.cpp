@@ -16,7 +16,7 @@ Camera::~Camera()
 void Camera::initCamera()
 {
 	position.zero();
-	position.setZ(3000000.0f);
+	position.setZ(2000000.0f);
 	rotation.zero();
 	speed.zero();
 	_speed = 30.0;
@@ -99,3 +99,4 @@ void Camera::move(double deltaTime)
 	movement *= total;
 	position += movement;
 }
+

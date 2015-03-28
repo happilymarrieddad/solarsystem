@@ -7,6 +7,7 @@ public:
     void planetOrbit(GLdouble &speed);
     void planetOrbit2(GLdouble &speed);
     void moonOrbit(Obj planet, GLdouble &speed);
+    void moonOrbit2(Obj planet, GLdouble &speed);
 
 	GLUquadricObj* getSphere() { return sphere; }
 	GLuint getTexture() { return texture; }
@@ -76,7 +77,7 @@ void Obj::setTexture(const char* filename)
 	gluQuadricDrawStyle(sphere, GLU_FILL);
 	gluQuadricTexture(sphere, GL_TRUE);
 	gluQuadricNormals(sphere, GLU_SMOOTH);
-	gluQuadricOrientation(sphere, GLU_INSIDE);
+	gluQuadricOrientation(sphere, GLU_OUTSIDE);
 }
 
 GLdouble Obj::getAngleOfRotation(GLfloat speed)
@@ -97,17 +98,6 @@ void Obj::planetOrbit(GLdouble &speed)
     if (yRotation > 360.0f) yRotation -= 360.0f;
     glRotatef(yRotation * (speed * -20.0f), 0.0f, 1.0f, 0.0f);
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-
-    GLfloat ambient[] = {0.2f,0.2f,0.2f,1.0f};
-    GLfloat diffuse[] = {0.8f,0.8f,0.8f,1.0f};
-    GLfloat specular[] = {0.0f,0.0f,0.0f,1.0f};
-    GLfloat emission[] = {0.0f,0.0f,0.0f,1.0f};
-
-    glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT,ambient);
-    glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,diffuse);
-    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,specular);
-    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,emission);
-    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,0);
 
     gluSphere(sphere, radius, QUALITY, QUALITY);
     glPopMatrix();
@@ -131,6 +121,21 @@ void Obj::moonOrbit(Obj planet, GLdouble &speed)
 {
     glPushMatrix();
     setX(distance * sin(this->getAngleOfRotation(speed)*(PI/180)) + planet.getX());
+    setZ(distance * cos(this->getAngleOfRotation(speed)*(PI/180)) + planet.getZ());
+    glTranslatef(x,y,z);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    yRotation -=  yRotationSpeed;
+    if (yRotation > 360.0f) yRotation -= 360.0f;
+    glRotatef(yRotation * (speed * -20.0f), 0.0f, 1.0f, 0.0f);
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+    gluSphere(sphere, radius, QUALITY, QUALITY);
+    glPopMatrix();
+}
+
+void Obj::moonOrbit2(Obj planet, GLdouble &speed)
+{
+    glPushMatrix();
+    setY(distance * sin(this->getAngleOfRotation(speed)*(PI/180)) + planet.getX());
     setZ(distance * cos(this->getAngleOfRotation(speed)*(PI/180)) + planet.getZ());
     glTranslatef(x,y,z);
     glBindTexture(GL_TEXTURE_2D, texture);

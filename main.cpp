@@ -18,16 +18,18 @@
 #include <cstdlib>
 
 // OpenGL includes
+#include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-#include <glm/glm.hpp>
-#include <GL/glfw.h>
 
 // Namespace
 using namespace std;
-#include "Image.cpp"
+
 
 // Global Variables
+bool* keyStates = new bool[256]();
+bool* keySpecialStates = new bool[256]();
+bool* mouseStates = new bool[256]();
 const GLint WINDOW_WIDTH = 1620;
 const GLint WINDOW_HEIGHT = 1080;
 const GLint WINDOW_Z_NEAR = 1;
@@ -35,24 +37,20 @@ const GLdouble WINDOW_Z_FAR = 1199254740992;
 const GLint WINDOW_FOV = 70;
 const GLdouble PI = 3.14159265359f;
 const GLfloat EARTH_ORBITAL_PERIOD = 365.26f;
-
-GLdouble SIMULATION_SPEED = 0.0005f;
-GLfloat QUALITY = 64.0f;
-GLfloat SIZE = 1.0f;
+const char *TITLE = "Nick's 3D Solar System Modeler";
 GLdouble DELTA_TIME = 0.0f;
 GLdouble OLD_TIMES_SINCE_START = 0.0f;
-GLdouble frames = 0;
 GLint FRAME = 0;
 GLint TIME;
 GLint TIMEBASE = 0;
 GLdouble FPS;
-const char *TITLE = "Nick's 3D Solar System Modeler";
-bool SPRINT = false;
+GLdouble SIMULATION_SPEED = 0.5f;
+GLfloat QUALITY = 32.0f;
 bool ACTUAL_DISTANCE = false;
-bool* keyStates = new bool[256]();
-bool* keySpecialStates = new bool[256]();
-bool* mouseStates = new bool[256]();
+bool SPRINT = false;
+GLfloat SIZE = 1.0f;
 
+#include "Image.cpp"
 #include "Obj.cpp"
 #include "objects.h"
 #include "Vec3.h"
@@ -65,12 +63,11 @@ Camera *camera;
 void initialize();
 void display();
 void reshape(int width, int height);
-GLfloat randRotation() { return (GLdouble) (((int) (rand() * 684)) % 360); }
-void lookAt();
 void initObjects();
 void drawObjects();
 void drawCameraLocation();
-
+void drawLighting();
+GLfloat randRotation() { return (GLdouble) (((int) (rand() * 684)) % 360); }
 /***************************************************************************
 * main()
 * Run an OpenGL project
@@ -99,17 +96,11 @@ void initialize()
     glutSetCursor(GLUT_CURSOR_NONE);
 
 	glEnable(GL_DEPTH_TEST);
-	glShadeModel(GL_SMOOTH);
-	glFrontFace(GL_CW);
-	glEnable(GL_CULL_FACE); // dont render backside
-	glEnable(GL_SCISSOR_TEST); // only render what has changed
 	glEnable(GL_TEXTURE_2D);
-    glEnable(GL_NORMALIZE);
-
-    glEnable(GL_LIGHTING);
-    glDisable(GL_LIGHTING);
-    glEnable(GL_COLOR_MATERIAL);
-    //glColorMaterial(GL_FRONT_AND_BACK,GL_DIFFUSE);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_NORMALIZE);
 
 
 	initObjects();
@@ -127,6 +118,16 @@ void display()
     if (SPRINT) camera->move(DELTA_TIME * 20);
     else camera->move(DELTA_TIME);
 
+
+	glutKeyboardFunc(keyPressed);
+	glutKeyboardUpFunc(keyUp);
+	glutMouseFunc(mouse);
+	glutPassiveMotionFunc(mousePassive);
+	keyOperations();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
     char s[128];
     FRAME++;
     TIME = glutGet(GLUT_ELAPSED_TIME);
@@ -139,24 +140,15 @@ void display()
 
     glutSetWindowTitle(s);
 
-    //cout << SIMULATION_SPEED << endl;
 
-	glutKeyboardFunc(keyPressed);
-	glutKeyboardUpFunc(keyUp);
-	glutMouseFunc(mouse);
-	glutPassiveMotionFunc(mousePassive);
-	keyOperations();
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-    GLfloat globalAmbient[] = { 0.2, 0.2, 0.2, 1.0 };
-    glLightModelfv( GL_LIGHT_MODEL_AMBIENT, globalAmbient );
+    drawCameraLocation();
 
 
-	lookAt();
+    drawLighting();
 
-	drawObjects();
+
+
+    drawObjects();
 
 
 	glutSwapBuffers();
@@ -179,11 +171,18 @@ void reshape(int width, int height)
 	glLoadIdentity();
 }
 
-/*******************************************************************************
-* FUNCTION: Lookat()
-*******************************************************************************/
-void lookAt()
+
+void drawLighting()
 {
+	GLfloat ambientColor[] = {0.01f,0.01f,0.01f,1.0f};
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambientColor);
+
+
+	GLfloat lightColor0[] = {0.5f,0.5f,0.5f,1.0f};
+	GLfloat lightPos0[] = {(GLfloat) -camera->getXPos(),(GLfloat) -camera->getYPos(),(GLfloat) -camera->getZPos()};
+	glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColor0);
+	glLightfv(GL_LIGHT0,GL_POSITION,lightPos0);
+
 }
 
 /*******************************************************************************
@@ -608,15 +607,6 @@ void drawObjects()
         charon.setDistance(3000.0f * SIZE);
     }
 
-    drawCameraLocation();
-
-    glPushMatrix();
-	glRotatef(sun.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
-	glBindTexture(GL_TEXTURE_2D, sun.getTexture()); 
-    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
-	gluSphere(sun.getSphere(), sun.getRadius(), QUALITY, QUALITY);
-	glPopMatrix();
-
 
     mercury.planetOrbit(SIMULATION_SPEED);
 
@@ -658,5 +648,18 @@ void drawObjects()
 
     pluto.planetOrbit(SIMULATION_SPEED);
     charon.moonOrbit(pluto, SIMULATION_SPEED);
-}
 
+
+
+
+    glDisable(GL_LIGHTING);
+    glPushMatrix();
+	glRotatef(sun.getAngleOfRotation(SIMULATION_SPEED), 0.0f, 1.0f, 0.0f);
+	glBindTexture(GL_TEXTURE_2D, sun.getTexture()); 
+    glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+	gluSphere(sun.getSphere(), sun.getRadius(), QUALITY, QUALITY);
+	glPopMatrix();
+	glEnable(GL_LIGHTING);
+
+
+}
