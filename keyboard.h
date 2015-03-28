@@ -116,13 +116,24 @@ void keyOperations()
     if (keyStates['v'])
     {
         SIMULATION_SPEED = 0.0f;
-    } else SIMULATION_SPEED = 0.0005f;
+    }
+    if (keyStates['r'])
+    {
+        SIMULATION_SPEED = 0.00005f;
+    }
+    if (keyStates['-'])
+    {
+    	SIMULATION_SPEED -= 0.5f;
+    }
+    if (keyStates['='])
+    {
+    	SIMULATION_SPEED += 0.5f;
+    }
 
-	// Look at Sol
+	
 	if (keyStates['1'])
 	{
 	}
-	// Look at Mercury
 	if (keyStates['2'])
 	{
 	}
@@ -166,5 +177,6 @@ void keyOperations()
 	{
 		
 	}
+	
 }
 
