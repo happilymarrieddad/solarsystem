@@ -44,12 +44,13 @@ GLint FRAME = 0;
 GLint TIME;
 GLint TIMEBASE = 0;
 GLdouble FPS;
-GLdouble SIMULATION_SPEED = 0.5f;
-GLfloat QUALITY = 32.0f;
+GLdouble SIMULATION_SPEED = 0.00005f;
+GLfloat QUALITY = 128.0f;
 bool ACTUAL_DISTANCE = false;
 bool SPRINT = false;
 GLfloat SIZE = 1.0f;
 
+#include "colors.h"
 #include "Image.cpp"
 #include "Obj.cpp"
 #include "objects.h"
@@ -101,6 +102,7 @@ void initialize()
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_NORMALIZE);
+    glutSetCursor(GLUT_CURSOR_NONE);
 
 
 	initObjects();
@@ -111,16 +113,18 @@ void initialize()
 * FUNCTION: Display()
 ********************************************************************************/
 void display()
-{
+{   
+    glutWarpPointer(((WINDOW_WIDTH/2)-1),(WINDOW_HEIGHT/2));
     GLint TIME_SINCE_START = glutGet(GLUT_ELAPSED_TIME);
     DELTA_TIME = TIME_SINCE_START - OLD_TIMES_SINCE_START;
     OLD_TIMES_SINCE_START = TIME_SINCE_START;
-    if (SPRINT) camera->move(DELTA_TIME * 20);
+    if (SPRINT) camera->move(DELTA_TIME * 50);
     else camera->move(DELTA_TIME);
 
 
 	glutKeyboardFunc(keyPressed);
 	glutKeyboardUpFunc(keyUp);
+
 	glutMouseFunc(mouse);
 	glutPassiveMotionFunc(mousePassive);
 	keyOperations();
@@ -128,6 +132,7 @@ void display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+    /*
     char s[128];
     FRAME++;
     TIME = glutGet(GLUT_ELAPSED_TIME);
@@ -139,7 +144,7 @@ void display()
     }
 
     glutSetWindowTitle(s);
-
+    */
 
     drawCameraLocation();
 
@@ -178,7 +183,7 @@ void drawLighting()
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambientColor);
 
 
-	GLfloat lightColor0[] = {0.5f,0.5f,0.5f,1.0f};
+	GLfloat lightColor0[] = {0.8f,0.8f,0.8f,1.0f};
 	GLfloat lightPos0[] = {(GLfloat) -camera->getXPos(),(GLfloat) -camera->getYPos(),(GLfloat) -camera->getZPos()};
 	glLightfv(GL_LIGHT0,GL_DIFFUSE,lightColor0);
 	glLightfv(GL_LIGHT0,GL_POSITION,lightPos0);
@@ -431,6 +436,7 @@ void initObjects()
     venus.setAngleOfRotation(150.0f);
     
     earth.setAngleOfRotation(255.0f);
+    //earth.setAngleOfRotation(0.0f);
     luna.setAngleOfRotation(randRotation());
     
     mars.setAngleOfRotation(110.0f);
@@ -624,6 +630,7 @@ void drawObjects()
     callisto.moonOrbit(jupiter, SIMULATION_SPEED);
 
     saturn.planetOrbit(SIMULATION_SPEED);
+    saturn.saturnRings();
     mimas.moonOrbit(saturn, SIMULATION_SPEED);
     enceladus.moonOrbit(saturn, SIMULATION_SPEED);
     tethys.moonOrbit(saturn, SIMULATION_SPEED);
@@ -648,6 +655,10 @@ void drawObjects()
 
     pluto.planetOrbit(SIMULATION_SPEED);
     charon.moonOrbit(pluto, SIMULATION_SPEED);
+
+
+
+
 
 
 

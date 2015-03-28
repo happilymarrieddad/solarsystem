@@ -8,6 +8,7 @@ public:
     void planetOrbit2(GLdouble &speed);
     void moonOrbit(Obj planet, GLdouble &speed);
     void moonOrbit2(Obj planet, GLdouble &speed);
+    void saturnRings();
 
 	GLUquadricObj* getSphere() { return sphere; }
 	GLuint getTexture() { return texture; }
@@ -82,7 +83,7 @@ void Obj::setTexture(const char* filename)
 
 GLdouble Obj::getAngleOfRotation(GLfloat speed)
 {
-	angle_of_rotation += speed * orbitalDays;
+	angle_of_rotation += speed * (orbitalDays / 10);
 	if (angle_of_rotation > 360.0f) angle_of_rotation -= 360.0f;
 	return angle_of_rotation;
 }
@@ -145,4 +146,93 @@ void Obj::moonOrbit2(Obj planet, GLdouble &speed)
     glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
     gluSphere(sphere, radius, QUALITY, QUALITY);
     glPopMatrix();
+}
+
+void Obj::saturnRings()
+{
+
+    glDisable(GL_LIGHTING);
+    GLUquadricObj *disc;
+    disc = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x,y,z);
+    glRotatef(84.0f,1.0f,0.0f,0.0f);
+    glColor4d(0.560784,0.560784,0.737255,0.40f);
+    gluDisk(disc,66900.0f,74510.0f,QUALITY,8.0f);
+    glPopMatrix();
+
+    disc = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x,y,z);
+    glRotatef(84.0f,1.0f,0.0f,0.0f);
+    glColor4d(0.510784,0.520784,0.797255,0.40f);
+    gluDisk(disc,74658.0f,92000.0f,QUALITY,8.0f);
+    glPopMatrix();
+    
+    disc = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x,y,z);
+    glRotatef(84.0f,1.0f,0.0f,0.0f);
+    glColor4d(0.590784,0.580784,0.767255,0.40f);
+    gluDisk(disc,92000.0f,117580.0f,QUALITY,8.0f);
+    glPopMatrix();
+    
+    disc = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x,y,z);
+    glRotatef(84.0f,1.0f,0.0f,0.0f);
+    glColor4d(0.790784,0.880784,0.967255,0.40f);
+    gluDisk(disc,118580.0f,122170.0f,QUALITY,8.0f);
+    glPopMatrix();
+
+    disc = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x,y,z);
+    glRotatef(84.0f,1.0f,0.0f,0.0f);
+    glColor4d(0.510784,0.520784,0.797255,0.40f);
+    gluDisk(disc,122170.0f,136775.0f,QUALITY,8.0f);
+    glPopMatrix();
+    
+    disc = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x,y,z);
+    glRotatef(84.0f,1.0f,0.0f,0.0f);
+    glColor4d(0.790784,0.880784,0.967255,0.40f);
+    gluDisk(disc,140180.0f,140500.0f,QUALITY,8.0f);
+    glPopMatrix();
+    
+    disc = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x,y,z);
+    glRotatef(84.0f,1.0f,0.0f,0.0f);
+    glColor4d(0.590784,0.580784,0.767255,0.40f);
+    gluDisk(disc,149000.0f,154000.0f,QUALITY,8.0f);
+    glPopMatrix();
+    
+    disc = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x,y,z);
+    glRotatef(84.0f,1.0f,0.0f,0.0f);
+    glColor4d(0.290784,0.580784,0.967255,0.40f);
+    gluDisk(disc,166000.0f,175000.0f,QUALITY,8.0f);
+    glPopMatrix();
+    
+    disc = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x,y,z);
+    glRotatef(84.0f,1.0f,0.0f,0.0f);
+    glColor4d(0.990784,0.980784,0.967255,0.40f);
+    gluDisk(disc,194239.0f,197665.0f,QUALITY,8.0f);
+    glPopMatrix();
+    
+    disc = gluNewQuadric();
+    glPushMatrix();
+    glTranslatef(x,y,z);
+    glRotatef(84.0f,1.0f,0.0f,0.0f);
+    glColor4d(0.590784,0.580784,0.767255,0.40f);
+    gluDisk(disc,211000.0f,213500.0f,QUALITY,8.0f);
+    glPopMatrix();
+
+    glColor3d(1,1,1);
+    glEnable(GL_LIGHTING);
 }

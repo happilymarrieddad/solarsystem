@@ -22,6 +22,8 @@ public:
     double getXRot()           const { return rotation.getX(); }
     double getYRot()           const { return rotation.getY(); }
     double getZRot()           const { return rotation.getZ(); }
+
+    double addYPos(double v)  { position.addY(v); }
     
     static const double TO_RADIANS;
     bool forward;

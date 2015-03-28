@@ -91,14 +91,6 @@ void keyOperations()
 	{
 	    exit(0);
 	}
-	if (keyStates['-'])
-	{
-		if (SIMULATION_SPEED > 0.0f) SIMULATION_SPEED -= 0.0005f;
-	}
-	if (keyStates['='])
-	{
-		SIMULATION_SPEED += 0.0005f;
-	}
     if (keyStates['y'])
     {
         ACTUAL_DISTANCE = true;
@@ -107,20 +99,24 @@ void keyOperations()
     {
         ACTUAL_DISTANCE = false;
     }
+    /*
+    if (!keyStates['y'])
+    {
+        ACTUAL_DISTANCE = true;
+    }
+    else if (keyStates['y'])
+    {
+        ACTUAL_DISTANCE = false;
+    }
+    */
     if (keyStates['e'])
     {
         SPRINT = true;
     } else SPRINT = false;
-    if (keyStates['r'])
-    {
-        SIMULATION_SPEED = 0.0005f;
-    }
     if (keyStates['v'])
     {
         SIMULATION_SPEED = 0.0f;
     } else SIMULATION_SPEED = 0.0005f;
-
-
 
 	// Look at Sol
 	if (keyStates['1'])

@@ -16,12 +16,13 @@ Camera::~Camera()
 void Camera::initCamera()
 {
 	position.zero();
+	//position.setZ(150600000.0f);
 	position.setZ(2000000.0f);
 	rotation.zero();
 	speed.zero();
 	_speed = 30.0;
-	_pitch = 0.0025;
-	_yaw = 0.0025;
+	_pitch = 0.025;
+	_yaw = 0.025;
 	forward = false;
 	backward = false;
 	left  = false;
