@@ -131,55 +131,57 @@ void keyOperations()
     	SIMULATION_SPEED += 0.5f;
     }
 
+    GLfloat DISTANCE_MULTIPLIER = 4.0f;
+
 	// Look at Sun
 	if (keyStates['1'])
 	{
-		camera->setPosition(sun.getX(),sun.getY(),sun.getZ());
+		camera->setPosition(sun.getX(),sun.getY(),(sun.getZ() + (sun.getRadius() * DISTANCE_MULTIPLIER)));
 	}
 	// Look at Mercury
 	if (keyStates['2'])
 	{
-		camera->setPosition(mercury.getX(),mercury.getY(),mercury.getZ());
+		camera->setPosition(mercury.getX(),mercury.getY(),(mercury.getZ() - (mercury.getRadius() * DISTANCE_MULTIPLIER)));
 	}
 	// Look at Venus
 	if (keyStates['3'])
 	{
-		camera->setPosition(venus.getX(),venus.getY(),venus.getZ());
+		camera->setPosition(venus.getX(),venus.getY(),(venus.getZ() - (venus.getRadius() * DISTANCE_MULTIPLIER)));
 	}
 	// Look at Earth
 	if (keyStates['4'])
 	{
-		camera->setPosition(earth.getX(),earth.getY(),earth.getZ());
+		camera->setPosition(earth.getX(),earth.getY(),(earth.getZ() - (earth.getRadius() * DISTANCE_MULTIPLIER)));
 	}
 	// Look at Mars
 	if (keyStates['5'])
 	{
-		camera->setPosition(mars.getX(),mars.getY(),mars.getZ());
+		camera->setPosition(mars.getX(),mars.getY(),(mars.getZ() - (mars.getRadius() * DISTANCE_MULTIPLIER)));
 	}
 	// Look at Jupiter
 	if (keyStates['6'])
 	{
-		camera->setPosition(jupiter.getX(),jupiter.getY(),jupiter.getZ());		
+		camera->setPosition(jupiter.getX(),jupiter.getY(),(jupiter.getZ() - (jupiter.getRadius() * DISTANCE_MULTIPLIER)));		
 	}
 	// Look at Saturn
 	if (keyStates['7'])
 	{
-		camera->setPosition(saturn.getX(),saturn.getY(),saturn.getZ());
+		camera->setPosition(saturn.getX(),saturn.getY(),(saturn.getZ() - (saturn.getRadius() * DISTANCE_MULTIPLIER)));
 	}
 	// Look at Uranus
 	if (keyStates['8'])
 	{
-		camera->setPosition(uranus.getX(),uranus.getY(),uranus.getZ());
+		camera->setPosition(uranus.getX(),uranus.getY(),(uranus.getZ() - (uranus.getRadius() * DISTANCE_MULTIPLIER)));
 	}
 	// Look at Neptune
 	if (keyStates['9'])
 	{
-		camera->setPosition(neptune.getX(),neptune.getY(),neptune.getZ());
+		camera->setPosition(neptune.getX(),neptune.getY(),(neptune.getZ() - (neptune.getRadius() * DISTANCE_MULTIPLIER)));
 	}
 	// Look at Pluto
 	if (keyStates['0'])
 	{
-		camera->setPosition(pluto.getX(),pluto.getY(),pluto.getZ());
+		camera->setPosition(pluto.getX(),pluto.getY(),(pluto.getZ() - (pluto.getRadius() * DISTANCE_MULTIPLIER)));
 	}
 }
 

@@ -106,5 +106,8 @@ void Camera::setPosition(double x, double y, double z)
 	position.setX(x);
 	position.setY(y);
 	position.setZ(z);
+	rotation.zero();
+	_pitch = 0.025;
+	_yaw = 0.025;
 }
 
