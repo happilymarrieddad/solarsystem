@@ -46,7 +46,7 @@ GLint TIMEBASE = 0;
 GLdouble FPS;
 GLdouble SIMULATION_SPEED = 0.00005f;
 GLfloat QUALITY = 128.0f;
-bool ACTUAL_DISTANCE = false;
+bool ACTUAL_DISTANCE = true;
 bool SPRINT = false;
 GLfloat SIZE = 1.0f;
 

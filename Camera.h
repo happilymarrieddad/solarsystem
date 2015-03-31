@@ -12,6 +12,7 @@ public:
     void  setPitchSensitivity(float value) { _pitch = value; }
     float getYawSensitivity()              { return _yaw;    }
     void  setYawSensitivity(float value)   { _yaw = value; }
+    void setPosition(double x, double y, double z);
  
     Vec3<double> getPosition() const { return position;        }
     double getXPos()           const { return position.getX(); }

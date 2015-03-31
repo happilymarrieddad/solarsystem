@@ -91,6 +91,7 @@ void keyOperations()
 	{
 	    exit(0);
 	}
+	/*
     if (keyStates['y'])
     {
         ACTUAL_DISTANCE = true;
@@ -99,7 +100,7 @@ void keyOperations()
     {
         ACTUAL_DISTANCE = false;
     }
-    /*
+    */
     if (!keyStates['y'])
     {
         ACTUAL_DISTANCE = true;
@@ -108,7 +109,7 @@ void keyOperations()
     {
         ACTUAL_DISTANCE = false;
     }
-    */
+    
     if (keyStates['e'])
     {
         SPRINT = true;
@@ -130,53 +131,55 @@ void keyOperations()
     	SIMULATION_SPEED += 0.5f;
     }
 
-	
+	// Look at Sun
 	if (keyStates['1'])
 	{
+		camera->setPosition(sun.getX(),sun.getY(),sun.getZ());
 	}
+	// Look at Mercury
 	if (keyStates['2'])
 	{
+		camera->setPosition(mercury.getX(),mercury.getY(),mercury.getZ());
 	}
 	// Look at Venus
-	if (keyStates['2'])
-	{
-		
-	}
-	// Look at Earth
 	if (keyStates['3'])
 	{
-		
+		camera->setPosition(venus.getX(),venus.getY(),venus.getZ());
 	}
-	// Look at Mars
+	// Look at Earth
 	if (keyStates['4'])
 	{
-		
+		camera->setPosition(earth.getX(),earth.getY(),earth.getZ());
 	}
-	// Look at Jupiter
+	// Look at Mars
 	if (keyStates['5'])
 	{
-		
+		camera->setPosition(mars.getX(),mars.getY(),mars.getZ());
 	}
-	// Look at Saturn
+	// Look at Jupiter
 	if (keyStates['6'])
 	{
-		
+		camera->setPosition(jupiter.getX(),jupiter.getY(),jupiter.getZ());		
 	}
-	// Look at Uranus
+	// Look at Saturn
 	if (keyStates['7'])
 	{
-		
+		camera->setPosition(saturn.getX(),saturn.getY(),saturn.getZ());
 	}
-	// Look at Neptune
+	// Look at Uranus
 	if (keyStates['8'])
 	{
-		
+		camera->setPosition(uranus.getX(),uranus.getY(),uranus.getZ());
 	}
-	// Look at Pluto
+	// Look at Neptune
 	if (keyStates['9'])
 	{
-		
+		camera->setPosition(neptune.getX(),neptune.getY(),neptune.getZ());
 	}
-	
+	// Look at Pluto
+	if (keyStates['0'])
+	{
+		camera->setPosition(pluto.getX(),pluto.getY(),pluto.getZ());
+	}
 }
 

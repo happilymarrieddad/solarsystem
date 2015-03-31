@@ -101,3 +101,10 @@ void Camera::move(double deltaTime)
 	position += movement;
 }
 
+void Camera::setPosition(double x, double y, double z)
+{
+	position.setX(x);
+	position.setY(y);
+	position.setZ(z);
+}
+
