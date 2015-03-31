@@ -49,6 +49,7 @@ GLfloat QUALITY = 128.0f;
 bool ACTUAL_DISTANCE = true;
 bool SPRINT = false;
 GLfloat SIZE = 1.0f;
+char s[128];
 
 #include "colors.h"
 #include "Image.cpp"
@@ -133,8 +134,7 @@ void display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-    /*
-    char s[128];
+    
     FRAME++;
     TIME = glutGet(GLUT_ELAPSED_TIME);
     if (TIME - TIMEBASE > 1000) {
@@ -145,7 +145,8 @@ void display()
     }
 
     glutSetWindowTitle(s);
-    */
+
+    
 
     drawCameraLocation();
 
