@@ -25,7 +25,6 @@
 // Namespace
 using namespace std;
 
-
 // Global Variables
 bool* keyStates = new bool[256]();
 bool* keySpecialStates = new bool[256]();

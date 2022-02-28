@@ -24,7 +24,7 @@ public:
     double getYRot()           const { return rotation.getY(); }
     double getZRot()           const { return rotation.getZ(); }
 
-    double addYPos(double v)  { position.addY(v); }
+    void addYPos(double v)  { position.addY(v); }
     
     static const double TO_RADIANS;
     bool forward;
